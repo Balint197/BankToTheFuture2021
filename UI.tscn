@@ -1,0 +1,104 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/greybutton_top.png" type="Texture" id=1]
+[ext_resource path="res://gameUI.tscn" type="PackedScene" id=2]
+[ext_resource path="res://controller.tscn" type="PackedScene" id=3]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://assets/fonts/Raleway-Regular.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 34
+outline_color = Color( 0.858824, 0.372549, 0.372549, 1 )
+font_data = SubResource( 1 )
+
+[node name="UI" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="controller" parent="." instance=ExtResource( 3 )]
+position = Vector2( 16.0182, -133.484 )
+
+[node name="ViewportContainer" type="ViewportContainer" parent="."]
+margin_right = 600.0
+margin_bottom = 850.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="ViewportContainer"]
+size = Vector2( 600, 500 )
+handle_input_locally = false
+usage = 0
+debug_draw = 2
+render_target_update_mode = 3
+
+[node name="gameUI" parent="ViewportContainer/Viewport" instance=ExtResource( 2 )]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_top = 500.0
+margin_right = 600.0
+margin_bottom = 1000.0
+color = Color( 0.823529, 0.831373, 0.545098, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HScrollBar" type="HScrollBar" parent="ColorRect"]
+margin_left = 33.409
+margin_top = 26.7507
+margin_right = 469.409
+margin_bottom = 55.7507
+
+[node name="Button" type="Button" parent="ColorRect"]
+margin_left = 54.0
+margin_top = 97.0
+margin_right = 134.0
+margin_bottom = 146.0
+
+[node name="Button2" type="Button" parent="ColorRect"]
+margin_left = 225.543
+margin_top = 97.8409
+margin_right = 305.543
+margin_bottom = 146.841
+
+[node name="Button3" type="Button" parent="ColorRect"]
+margin_left = 350.837
+margin_top = 100.364
+margin_right = 430.837
+margin_bottom = 149.364
+
+[node name="Button4" type="Button" parent="ColorRect"]
+margin_left = 464.357
+margin_top = 95.3182
+margin_right = 544.357
+margin_bottom = 144.318
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_left = 200.0
+margin_right = 395.366
+margin_bottom = -97.0883
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="TextureRect"]
+margin_left = 38.0118
+margin_top = 3.99493
+margin_right = 241.012
+margin_bottom = 68.9949
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "1000"
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}

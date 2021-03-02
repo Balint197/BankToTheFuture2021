@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/adventurer_tilesheet.png" type="Texture" id=2]
+
+[node name="gameUI" type="Node2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 219.948, 303.869 )
+scale = Vector2( 2.75408, 2.75408 )
+texture = ExtResource( 2 )
+vframes = 3
+hframes = 9
+frame = 10
