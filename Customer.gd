@@ -5,6 +5,7 @@ class_name Customer
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
+ 
 
 
 #parameters that describe the type of customer:
