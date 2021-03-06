@@ -4,10 +4,12 @@ class_name Customer
 
 #parameters of customer
 const DEBUG = true
+const CUSTOMER_DEBUG = false
 const DYNAMICS = 0.1
 const MULT_MIN = 1
 const MULT_MAX = 4
-const SATISFACTION_DEGRADATION = 0.2
+#satisfaction timeout is in days
+const SATISFACTION_TIMEOUT = 30
 
 
 #parameters that describe the type of customer:
@@ -35,30 +37,34 @@ var b
 var CUSTOMER_0 = {
 	'q_min': 1,
 	'q_max': 4,
-	'p_0': 100,
+	'p_0': 66,
+	'satisfaction': 1
 }
 var CUSTOMER_1 = {
 	'q_min': 1,
 	'q_max': 4,
-	'p_0': 100,
+	'p_0': 85,
+	'satisfaction': 1
 }
 var CUSTOMER_2 = {
 	'q_min': 1,
 	'q_max': 4,
-	'p_0': 100,
+	'p_0': 105,
+	'satisfaction': 1
 }
 var CUSTOMER_3 = {
 	'q_min': 1,
 	'q_max': 4,
-	'p_0': 100,
+	'p_0': 145,
+	'satisfaction': 1
 }
 
-#array to hold customer vategories (referenceable with string or number)
+#array to hold customer categories, this maps string names with categories
 var CUSTOMER_CATEGORIES = {
-	'CUSTOMER_0': CUSTOMER_0,
-	'CUSTOMER_1': CUSTOMER_1,
-	'CUSTOMER_2': CUSTOMER_2,
-	'CUSTOMER_3': CUSTOMER_3
+	'POOR': CUSTOMER_0,
+	'MIDDLE_LOW': CUSTOMER_1,
+	'MIDDLE_HIGH': CUSTOMER_2,
+	'RICH': CUSTOMER_3
 }
 
 #init function when class is instanced
@@ -67,11 +73,13 @@ func _init(customer_category):
 	self.dynamics = self.middle_price*DYNAMICS
 	self.min_quantity = CUSTOMER_CATEGORIES[customer_category]['q_min']
 	self.max_quantity = CUSTOMER_CATEGORIES[customer_category]['q_max']
+	self.satisfaction = CUSTOMER_CATEGORIES[customer_category]['satisfaction']
 	self.category = customer_category
 	self.gradient = -2*self.dynamics/(self.max_quantity-self.min_quantity)
 	self.multiplyer = randi() % (MULT_MAX - MULT_MIN) + MULT_MIN
 	self.b = self.middle_price + self.dynamics - self.min_quantity * self.gradient
-	if DEBUG:
+	
+	if CUSTOMER_DEBUG:
 		print('Customer of category {c} created with multiplyer of {m}'.format({'c':self.category, 'm':self.multiplyer}))
 	
 	return
@@ -82,19 +90,19 @@ func _init(customer_category):
 func get_quantity(price):
 	#if price is not in the range, return -1
 	if((price < self.middle_price-self.dynamics) || (price > self.middle_price+self.dynamics)):
-		if DEBUG:
+		if CUSTOMER_DEBUG:
 			print('Customer doesn\'t buy anything because price {p} is out of range'.format({'p':price}))
 		return -1
 	
 	var q = 1/self.gradient*price - self.b/self.gradient
 	q = round(q) * self.multiplyer
-	if DEBUG:
+	if CUSTOMER_DEBUG:
 		print('Customer is buying {q} ice cream for {p} each'.format({'q':q, 'p':price}))
 	return q
 	
 #timeout for satisfaction
-func degrade_satisfaction():
-	self.satisfaction *= SATISFACTION_DEGRADATION
+func degrade_satisfaction(degdaration_per_tick):
+	self.satisfaction *= degdaration_per_tick
 	return
 	
 #upgrade satisfaction after a good buy
