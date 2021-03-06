@@ -201,6 +201,7 @@ func _on_FrameUpdateTimer_timeout():
 			myPopulation.update_marketing(myBuffet.marketing)
 			customersgoing = myPopulation.get_customers_tick()
 			print(customersgoing.size())
+			print('Buffersize: {a}'.format({'a' : myBuffet.currentCustomerCount}))
 			if customersgoing.size() > 0:
 				
 				for i in range(customersgoing.size()):
@@ -238,7 +239,7 @@ func customerStateMachine():
 #			if firstCustomerCameIn:
 #				firstCustomerCameIn = false
 #				emit_signal("firstCustomerComesIn")#, myBuffet.numOfCustomersToDisplay)
-			if nextCustomerCanComeToDesk && myBuffet.currentCustomerCount >0:
+			if myBuffet.currentCustomerCount >0:
 				nextState = CUSTOMER_APPROACHING 
 				nextCustomerCanComeToDesk = false
 				emit_signal("nextCustomerToDesk")
