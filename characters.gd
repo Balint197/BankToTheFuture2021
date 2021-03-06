@@ -9,10 +9,15 @@ var texture_4 = preload("res://assets/characters/char4.png")
 
 var texture_array = [texture_1, texture_2, texture_3, texture_4]
 
+signal ordering
 
 func _ready():
 	generateSprite()
 	resize()
+	
+func _process(delta):
+	resize()
+
 
 func generateSprite():
 	randomize()
@@ -23,3 +28,12 @@ func resize():
 	
 	scale = Vector2(1 - (unit_offset * minScale), 1 - (unit_offset * minScale))
 
+
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if anim_name == "walk_forward":
+		emit_signal("ordering")
+		
+	if anim_name == "walkOut":
+		queue_free()
