@@ -26,7 +26,7 @@
 [ext_resource path="res://assets/menu/coins.png" type="Texture" id=24]
 [ext_resource path="res://assets/menu/unknown.png" type="Texture" id=25]
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=1]
 resource_name = "scroll"
 length = 0.8
 tracks/0/type = "bezier"
@@ -40,7 +40,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.8 )
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=2]
 resource_name = "scrollBack"
 length = 0.8
 tracks/0/type = "bezier"
@@ -54,7 +54,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.8 )
 }
 
-[sub_resource type="StyleBoxFlat" id=7]
+[sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.823529, 0.831373, 0.545098, 1 )
 
 [node name="UI" type="Control"]
@@ -223,8 +223,8 @@ scale = Vector2( 0.168453, 0.168453 )
 texture = ExtResource( 23 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ColorRect"]
-anims/scroll = SubResource( 5 )
-anims/scrollBack = SubResource( 6 )
+anims/scroll = SubResource( 1 )
+anims/scrollBack = SubResource( 2 )
 
 [node name="scrollingContainer" type="Control" parent="ColorRect"]
 anchor_left = 1.0
@@ -239,14 +239,13 @@ __meta__ = {
 [node name="TabContainer" type="TabContainer" parent="ColorRect/scrollingContainer"]
 anchor_bottom = 1.0
 margin_right = 1160.0
-custom_styles/panel = SubResource( 7 )
+custom_styles/panel = SubResource( 3 )
 tabs_visible = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="rent" type="Tabs" parent="ColorRect/scrollingContainer/TabContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 scrolling_enabled = false
@@ -355,6 +354,7 @@ __meta__ = {
 }
 
 [node name="chef" type="Tabs" parent="ColorRect/scrollingContainer/TabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 scrolling_enabled = false
@@ -615,17 +615,6 @@ __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
 }
-[connection signal="customeShallPay" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_customeShallPay"]
-[connection signal="customerComesIn" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_customerComesIn"]
-[connection signal="customerFinished" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_customerFinished"]
-[connection signal="customersEntering" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_customersEntering"]
-[connection signal="dayElapsed" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_dayElapsed"]
-[connection signal="dayElapsed" from="controller" to="." method="_on_controller_dayElapsed"]
-[connection signal="firstCustomerComesIn" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_firstCustomerComesIn"]
-[connection signal="nextCustomerToDesk" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_nextCustomerToDesk"]
-[connection signal="showSpecial" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_showSpecial"]
-[connection signal="startInteraction" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_startInteraction"]
-[connection signal="waitForChange" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_waitForChange"]
 [connection signal="timeout" from="controller/DayTimer" to="controller" method="_on_DayTimer_timeout"]
 [connection signal="timeout" from="controller/FrameUpdateTimer" to="controller" method="_on_FrameUpdateTimer_timeout"]
 [connection signal="changeClaimed" from="ViewportContainer/Viewport/gameUI" to="controller" method="_on_gameUI_changeClaimed"]
