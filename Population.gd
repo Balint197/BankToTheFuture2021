@@ -39,6 +39,20 @@ var customerTypes := {
 	'RICH': Customer.new('RICH')
 }
 
+#copy customer object
+func copy_customer(old_customer):
+	var new_customer := Customer.new(old_customer.category)
+	new_customer.middle_price = old_customer.middle_price
+	new_customer.dynamics = old_customer.dynamics
+	new_customer.min_quantity = old_customer.min_quantity
+	new_customer.max_quantity = old_customer.max_quantity
+	new_customer.satisfaction = old_customer.satisfaction
+	new_customer.category = old_customer.category
+	new_customer.gradient = old_customer.gradient
+	new_customer.multiplyer = old_customer.multiplyer
+	new_customer.b = old_customer.b
+	return new_customer
+
 func get_amount_for_type(price, customer_type):
 	if (customerTypes[customer_type].get_quantity(price) > 0):
 		if DEBUG:
@@ -89,6 +103,37 @@ func delete_customer_array(active):
 
 func update_marketing(new_marketing):
 	self.marketing = new_marketing
+	
+func update_price(price):
+	var customers_to_delete = []
+	#check if there is anybody in the active array that doesn't like this price
+	for i in range(0, active_customers.size()):
+		if(active_customers[i].call('get_quantity', price) <= 0):
+			#if there is someone who doesn't like the new price, put in the inactive queue
+			passive_customers.push_back(copy_customer(active_customers[i]))
+			customers_to_delete.push_back(active_customers[i])
+	if DEBUG:
+		print('{c} customers put from active to passive because of the price change'.format({'c': customers_to_delete.size()}))
+	#delete these customers from old queue
+	for i in range(0, customers_to_delete.size()):
+		active_customers.erase(customers_to_delete[i])
+		customers_to_delete[i].free()
+	customers_to_delete.clear()
+		
+	#check if there is anyone in the passive queue that likes this new price
+	for i in range(0, passive_customers.size()):
+		if(passive_customers[i].call('get_quantity', price) >= 0):
+			#if there is someone who doesn't like the new price, put in the inactive queue
+			active_customers.push_back(copy_customer(passive_customers[i]))
+			customers_to_delete.push_back(passive_customers[i])
+	if DEBUG:
+		print('{c} customers put from active to passive because of the price change'.format({'c': customers_to_delete.size()}))
+	#delete these customers from old queue
+	for i in range(0, customers_to_delete.size()):
+		passive_customers.erase(customers_to_delete[i])
+		customers_to_delete[i].free()
+	customers_to_delete.clear()
+	
 
 #gets a list of customer for buying
 #each customer is deciding whether to go to the buffet this time or not based on the satisfaction
@@ -100,8 +145,14 @@ func get_customers_tick():
 		if(rand_range(0, 1) <= probability_tick):
 			going_customers.push_back(active_customers[i])
 	return going_customers
-		
 
+#call this when a customer has finished shopping
+#input: factor is the factor to upgrade/degrade satisfaction
+func customer_shopped(customer, factor):
+	if(active_customers.find(customer)>0):
+		customer.call('upgrade_satisfaction', factor)
+	return
+	
 #instantinate population with actual price
 func _init(price, marketing_value, ticks_per_second, seconds_per_day):
 	self.marketing = marketing_value
