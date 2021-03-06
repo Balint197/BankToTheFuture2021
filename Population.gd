@@ -19,8 +19,15 @@ var passive_customers = []
 #copy of marketing value from UI
 var marketing
 
+#copy of ticks per day from controller
+var ticks_per_day
+
 #total number of population
 const POPULATION = 100
+#maximal satisfaction
+const MAX_SATISFACTION = 4
+#with satisfaction of 1, the customer goes once in this period (days)
+const SATISFACTION_FREQUENCY = 30
 
 const DEBUG = true
 
@@ -83,9 +90,22 @@ func delete_customer_array(active):
 func update_marketing(new_marketing):
 	self.marketing = new_marketing
 
+#gets a list of customer for buying
+#each customer is deciding whether to go to the buffet this time or not based on the satisfaction
+func get_customers_tick():
+	var going_customers = []
+	for i in range(0, active_customers.size()):
+		var probability_day = float(active_customers[i].satisfaction) / float(SATISFACTION_FREQUENCY)
+		var probability_tick = probability_day / float(self.ticks_per_day)
+		if(rand_range(0, 1) <= probability_tick):
+			going_customers.push_back(active_customers[i])
+	return going_customers
+		
+
 #instantinate population with actual price
-func _init(price, marketing_value):
+func _init(price, marketing_value, ticks_per_second, seconds_per_day):
 	self.marketing = marketing_value
+	self.ticks_per_day = ticks_per_second * seconds_per_day
 	var amounts = get_amount_for_all(price)
 	init_active_customers(amounts, price)
 	
