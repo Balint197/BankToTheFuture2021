@@ -31,18 +31,48 @@ var category
 #buffer variable for storing function parameter from p=mq+b
 var b
 
+#customer parameters
+var CUSTOMER_0 = {
+	'q_min': 1,
+	'q_max': 4,
+	'p_0': 100,
+}
+var CUSTOMER_1 = {
+	'q_min': 1,
+	'q_max': 4,
+	'p_0': 100,
+}
+var CUSTOMER_2 = {
+	'q_min': 1,
+	'q_max': 4,
+	'p_0': 100,
+}
+var CUSTOMER_3 = {
+	'q_min': 1,
+	'q_max': 4,
+	'p_0': 100,
+}
+
+#array to hold customer vategories (referenceable with string or number)
+var CUSTOMER_CATEGORIES = {
+	'CUSTOMER_0': CUSTOMER_0,
+	'CUSTOMER_1': CUSTOMER_1,
+	'CUSTOMER_2': CUSTOMER_2,
+	'CUSTOMER_3': CUSTOMER_3
+}
+
 #init function when class is instanced
-func _init():
-	self.middle_price = 90
+func _init(customer_category):
+	self.middle_price = CUSTOMER_CATEGORIES[customer_category]['p_0']
 	self.dynamics = self.middle_price*DYNAMICS
-	self.min_quantity = 3
-	self.max_quantity = 5
-	self.category = "categorycsöves2"
+	self.min_quantity = CUSTOMER_CATEGORIES[customer_category]['q_min']
+	self.max_quantity = CUSTOMER_CATEGORIES[customer_category]['q_max']
+	self.category = customer_category
 	self.gradient = -2*self.dynamics/(self.max_quantity-self.min_quantity)
 	self.multiplyer = randi() % (MULT_MAX - MULT_MIN) + MULT_MIN
 	self.b = self.middle_price + self.dynamics - self.min_quantity * self.gradient
 	if DEBUG:
-		print('Customer created with multiplyer of {m}'.format({'m':self.multiplyer}))
+		print('Customer of category {c} created with multiplyer of {m}'.format({'c':self.category, 'm':self.multiplyer}))
 	
 	return
 
@@ -57,7 +87,7 @@ func get_quantity(price):
 		return -1
 	
 	var q = 1/self.gradient*price - self.b/self.gradient
-	q = round(q)
+	q = round(q) * self.multiplyer
 	if DEBUG:
 		print('Customer is buying {q} ice cream for {p} each'.format({'q':q, 'p':price}))
 	return q
