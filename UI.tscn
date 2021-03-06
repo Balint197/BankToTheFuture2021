@@ -73,6 +73,7 @@ wait_time = 30.0
 one_shot = true
 
 [node name="FrameUpdateTimer" type="Timer" parent="controller"]
+wait_time = 0.1
 autostart = true
 
 [node name="ViewportContainer" type="ViewportContainer" parent="."]

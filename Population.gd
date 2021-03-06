@@ -185,8 +185,8 @@ func get_customers_tick():
 		var probability_day = float(active_customers[i].satisfaction) / float(SATISFACTION_FREQUENCY)
 		var probability_tick = probability_day / float(self.ticks_per_day)
 		randomize()
-		if(rand_range(0, 1) <= probability_tick*100000000.0):
-			going_customers.push_back(active_customers[i])
+		if(rand_range(0, 1) <= probability_tick):
+			going_customers.append(active_customers[i])
 			
 	#degrade inactive customers
 	for i in range(0, passive_customers.size()):
@@ -196,7 +196,7 @@ func get_customers_tick():
 			passive_customers.erase(tmp_cust)
 			tmp_cust.free()
 	
-	return going_customers.duplicate(true)
+	return going_customers#.duplicate(true)
 
 #call this when a customer has finished shopping
 #input: factor is the factor to upgrade/degrade satisfaction
