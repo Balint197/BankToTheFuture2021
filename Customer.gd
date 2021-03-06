@@ -4,6 +4,7 @@ class_name Customer
 
 #parameters of customer
 const DEBUG = true
+const CUSTOMER_DEBUG = false
 const DYNAMICS = 0.1
 const MULT_MIN = 1
 const MULT_MAX = 4
@@ -53,7 +54,7 @@ var CUSTOMER_3 = {
 	'p_0': 100,
 }
 
-#array to hold customer vategories, this maps string names with categories
+#array to hold customer categories, this maps string names with categories
 var CUSTOMER_CATEGORIES = {
 	'POOR': CUSTOMER_0,
 	'MIDDLE_LOW': CUSTOMER_1,
@@ -71,7 +72,7 @@ func _init(customer_category):
 	self.gradient = -2*self.dynamics/(self.max_quantity-self.min_quantity)
 	self.multiplyer = randi() % (MULT_MAX - MULT_MIN) + MULT_MIN
 	self.b = self.middle_price + self.dynamics - self.min_quantity * self.gradient
-	if DEBUG:
+	if CUSTOMER_DEBUG:
 		print('Customer of category {c} created with multiplyer of {m}'.format({'c':self.category, 'm':self.multiplyer}))
 	
 	return
