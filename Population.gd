@@ -23,7 +23,7 @@ var marketing
 var ticks_per_day
 
 #total number of population
-const POPULATION = 100
+const POPULATION = 1000
 #maximal satisfaction
 const MAX_SATISFACTION = 4
 #with satisfaction of 1, the customer goes once in this period (days)
