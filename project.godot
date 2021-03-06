@@ -10,11 +10,17 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Object",
+"class": "Buffet",
+"language": "GDScript",
+"path": "res://Buffet.gd"
+}, {
+"base": "Object",
 "class": "Customer",
 "language": "GDScript",
 "path": "res://Customer.gd"
 } ]
 _global_script_class_icons={
+"Buffet": "",
 "Customer": ""
 }
 

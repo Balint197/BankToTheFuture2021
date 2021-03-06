@@ -22,6 +22,14 @@ __meta__ = {
 [node name="controller" parent="." instance=ExtResource( 3 )]
 position = Vector2( 16.0182, -133.484 )
 
+[node name="DayTimer" type="Timer" parent="controller"]
+wait_time = 5.0
+one_shot = true
+
+[node name="FrameUpdateTimer" type="Timer" parent="controller"]
+wait_time = 0.1
+autostart = true
+
 [node name="ViewportContainer" type="ViewportContainer" parent="."]
 margin_right = 600.0
 margin_bottom = 850.0
@@ -52,6 +60,9 @@ margin_left = 33.409
 margin_top = 26.7507
 margin_right = 469.409
 margin_bottom = 55.7507
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Button" type="Button" parent="ColorRect"]
 margin_left = 54.0
@@ -102,3 +113,5 @@ __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
 }
+[connection signal="timeout" from="controller/DayTimer" to="controller" method="_on_DayTimer_timeout"]
+[connection signal="timeout" from="controller/FrameUpdateTimer" to="controller" method="_on_FrameUpdateTimer_timeout"]
