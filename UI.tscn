@@ -78,6 +78,10 @@ position = Vector2( 16.0182, -133.484 )
 
 [node name="DayTimer" type="Timer" parent="controller"]
 wait_time = 5.0
+one_shot = true
+
+[node name="FrameUpdateTimer" type="Timer" parent="controller"]
+autostart = true
 
 [node name="ViewportContainer" type="ViewportContainer" parent="."]
 margin_right = 600.0
@@ -470,6 +474,8 @@ __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
 }
+[connection signal="timeout" from="controller/DayTimer" to="controller" method="_on_DayTimer_timeout"]
+[connection signal="timeout" from="controller/FrameUpdateTimer" to="controller" method="_on_FrameUpdateTimer_timeout"]
 [connection signal="button_up" from="ColorRect/TextureButton" to="ColorRect" method="_on_TextureButton_button_up"]
 [connection signal="button_up" from="ColorRect/TextureButton2" to="ColorRect" method="_on_TextureButton2_button_up"]
 [connection signal="button_up" from="ColorRect/TextureButton3" to="ColorRect" method="_on_TextureButton3_button_up"]
