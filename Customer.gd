@@ -37,21 +37,25 @@ var CUSTOMER_0 = {
 	'q_min': 1,
 	'q_max': 4,
 	'p_0': 100,
+	'satisfaction': 1
 }
 var CUSTOMER_1 = {
 	'q_min': 1,
 	'q_max': 4,
 	'p_0': 100,
+	'satisfaction': 1
 }
 var CUSTOMER_2 = {
 	'q_min': 1,
 	'q_max': 4,
 	'p_0': 100,
+	'satisfaction': 1
 }
 var CUSTOMER_3 = {
 	'q_min': 1,
 	'q_max': 4,
 	'p_0': 100,
+	'satisfaction': 1
 }
 
 #array to hold customer categories, this maps string names with categories
