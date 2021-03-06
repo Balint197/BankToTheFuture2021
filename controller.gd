@@ -11,5 +11,5 @@ func _ready():
 
 
 func _process(delta):
-	print(priceSlider.value)
+	print(get_tree().get_root().get_node("UI/ColorRect").reportValues())
 	pass

@@ -1,13 +1,41 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://assets/adventurer_tilesheet.png" type="Texture" id=2]
+[ext_resource path="res://characters.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/characters/bg.png" type="Texture" id=2]
+[ext_resource path="res://gameUI.gd" type="Script" id=3]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 323.999, 454.871, 11.8921, 54.7035, -11.8921, -54.7035, 52.8601, 362.113, -46.3791, 14.2705, 46.3791, -14.2705, 130.159, 244.382, -60.6496, -10.7029, 60.6496, 10.7029, 344.216, 244.382, -73.7308, -13.0813, 73.7308, 13.0813, 477.407, 202.759, 0, 0, 0, 0, 646.274, 133.785 )
+}
 
 [node name="gameUI" type="Node2D"]
+script = ExtResource( 3 )
 
-[node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 219.948, 303.869 )
-scale = Vector2( 2.75408, 2.75408 )
+[node name="bg" type="Sprite" parent="."]
+modulate = Color( 0.301961, 0.301961, 0.301961, 1 )
+position = Vector2( 356.108, 243.192 )
 texture = ExtResource( 2 )
-vframes = 3
-hframes = 9
-frame = 10
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="character" parent="Path2D" instance=ExtResource( 1 )]
+position = Vector2( 323.999, 454.871 )
+
+[node name="character2" parent="Path2D" instance=ExtResource( 1 )]
+position = Vector2( 340.966, 243.824 )
+offset = 659.39
+
+[node name="character3" parent="Path2D" instance=ExtResource( 1 )]
+position = Vector2( 97.9609, 260.311 )
+offset = 411.167
+
+[node name="Timer" type="Timer" parent="."]
