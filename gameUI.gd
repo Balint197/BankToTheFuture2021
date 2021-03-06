@@ -29,7 +29,7 @@ func _ready():
 #	customer.connect("ordering", self, "handleOrder")
 #	customer.get_node("AnimationPlayer").play("walk_forward")
 
-	walkForward()
+	#walkForward()
 	pass
 
 func newCustomer():
@@ -55,8 +55,8 @@ func newCustomer():
 			customer.z_index = maxZ - 1
 			
 			
-	if ordering == 1:
-		buffer += 1
+#	if ordering == 1:
+#		buffer += 1
 
 
 func walkForward():
@@ -146,3 +146,7 @@ func _on_controller_startInteraction():
 
 func _on_controller_waitForChange():
 	emit_signal("changeClaimed")
+
+
+func _on_controller_customersEntering(num):
+	buffer = num

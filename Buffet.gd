@@ -47,7 +47,8 @@ func addCustomer(customer: Customer):
 	customers.push_back(customer)
 	currentCustomerCount += 1
 func removeCustomer():
-	currentCustomerCount -=1
+	if currentCustomerCount>0:
+		currentCustomerCount -=1
 	return customers.pop_front()
 
 

@@ -79,7 +79,7 @@ __meta__ = {
 position = Vector2( 16.0182, -133.484 )
 
 [node name="DayTimer" type="Timer" parent="controller"]
-wait_time = 50.0
+wait_time = 30.0
 one_shot = true
 
 [node name="FrameUpdateTimer" type="Timer" parent="controller"]
@@ -479,6 +479,7 @@ __meta__ = {
 [connection signal="customeShallPay" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_customeShallPay"]
 [connection signal="customerComesIn" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_customerComesIn"]
 [connection signal="customerFinished" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_customerFinished"]
+[connection signal="customersEntering" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_customersEntering"]
 [connection signal="dayElapsed" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_dayElapsed"]
 [connection signal="dayElapsed" from="controller" to="." method="_on_controller_dayElapsed"]
 [connection signal="firstCustomerComesIn" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_firstCustomerComesIn"]
