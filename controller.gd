@@ -33,19 +33,71 @@ func test():
 	var price = priceSlider.value
 	#var marketing = get_tree().get_root().get_node("UI/ColorRect").reportValues()[2]
 	var marketing = 20
-	var population = Population.new(price, marketing)
+	var population = Population.new(price, marketing, 10, 5)
 	print('Population is done, there are {a} active customers and {p} passive ones.'.format({
 		'a': population.active_customers.size(),
 		'p': population.passive_customers.size()
 		}))
-	print('Deleting active customers...')
-	population.call("delete_customer_array", true)
-	print('Deleting passive customers...')
-	population.call("delete_customer_array", false)
+	#print('Deleting active customers...')
+	#population.call("delete_customer_array", true)
+	#print('Deleting passive customers...')
+	#population.call("delete_customer_array", false)
 	print('After deleting, there are {a} active customers and {p} passive ones.'.format({
 		'a': population.active_customers.size(),
 		'p': population.passive_customers.size()
 		}))
+	#ennek így úgy kéne mennie hogy ahány vásárló van, annyian mennek be (mindenki egyszer)
+	var totalcustomers = 0
+	for i in range(0, 10*5*30):
+		var customers = population.call("get_customers_tick")
+		if(customers.size() > 0):
+			#print("Tick {t} gave {c} customers".format({'t':i, 'c':customers.size()}))
+			totalcustomers += customers.size()
+	print('All customers in month: {c}'.format({'c':totalcustomers}))
+	
+	print("Original satisfaction is {s}".format({'s': population.active_customers[3].satisfaction}))
+	var cust = population.active_customers[3]
+	population.call('customer_shopped', cust, 3)
+	print("New satisfaction is {s}".format({'s': population.active_customers[3].satisfaction}))
+	
+	var newprice = 80
+	print("Changing price from {o} to {n}".format({'o': population.price, 'n': newprice}))
+	print("Old reach:")
+	var amounts = population.call('get_amount_for_all', price)
+	for type in amounts:
+		print("Type {t}\t amount {a}".format({'t': type, 'a':population.call('get_existing_amount_for_type', type)}))
+	population.call('update_price', newprice)
+	print("New reach:")
+	var new_amounts = population.call('get_amount_for_all', newprice)
+	for type in new_amounts:
+		print("Type {t}\t amount {a}".format({'t': type, 'a':population.call('get_existing_amount_for_type', type)}))
+		
+	print('Population is done, there are {a} active customers and {p} passive ones.'.format({
+		'a': population.active_customers.size(),
+		'p': population.passive_customers.size()
+		}))
+			
+	var newmarketing = 10
+	print("Updating marketing from {o} to {n}".format({'o':population.marketing, 'n': newmarketing}))
+	
+	print("Old reach:")
+	amounts = population.call('get_amount_for_all', population.price)
+	for type in amounts:
+		print("Type {t}\t amount {a}".format({'t': type, 'a':population.call('get_existing_amount_for_type', type)}))
+	population.call('update_price', newprice)
+	
+	population.call("update_marketing", newmarketing)
+	
+	print("New reach:")
+	new_amounts = population.call('get_amount_for_all', population.price)
+	for type in new_amounts:
+		print("Type {t}\t amount {a}".format({'t': type, 'a':population.call('get_existing_amount_for_type', type)}))
+	
+	print('Population is done, there are {a} active customers and {p} passive ones.'.format({
+		'a': population.active_customers.size(),
+		'p': population.passive_customers.size()
+		}))
+	
 
 func _ready():
 	#money.text = "120"
