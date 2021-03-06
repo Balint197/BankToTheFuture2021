@@ -72,10 +72,12 @@ func _init(customer_category):
 	self.dynamics = self.middle_price*DYNAMICS
 	self.min_quantity = CUSTOMER_CATEGORIES[customer_category]['q_min']
 	self.max_quantity = CUSTOMER_CATEGORIES[customer_category]['q_max']
+	self.satisfaction = CUSTOMER_CATEGORIES[customer_category]['satisfaction']
 	self.category = customer_category
 	self.gradient = -2*self.dynamics/(self.max_quantity-self.min_quantity)
 	self.multiplyer = randi() % (MULT_MAX - MULT_MIN) + MULT_MIN
 	self.b = self.middle_price + self.dynamics - self.min_quantity * self.gradient
+	
 	if CUSTOMER_DEBUG:
 		print('Customer of category {c} created with multiplyer of {m}'.format({'c':self.category, 'm':self.multiplyer}))
 	
