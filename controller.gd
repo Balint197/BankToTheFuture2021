@@ -1,8 +1,6 @@
 extends Node2D
 #Main controller 
 
-signal newCustomer
-
 #---------------------------START OF LOADING CLASSES---------------------------------------------------------#
 var buffetClass = preload("Buffet.gd")
 #---------------------------END OF LOADING CLASSES-----------------------------------------------------------#
