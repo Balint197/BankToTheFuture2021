@@ -26,11 +26,11 @@ var overallIncome :=0
 #--------------END OF DERIVED VARIABLES------------------------------------------#
 ##################################################################################
 #--------------START OF POPULATION-DERIVED VARIABLES-----------------------------#
-var currentCustomerCount := 0 setget currentCustomerCountSet, currentCustomerCountGet
+var currentCustomerCount := 0 
 var customers := []
 var reputation := 0.0
 
-var numOfCustomersToDisplay := 0
+
 #--------------END OF POPULATION-DERIVED VARIABLES-------------------------------#
 ##################################################################################
 
@@ -41,18 +41,13 @@ func _init():
 func _ready():
 	pass # Replace with function body.
 	
-func currentCustomerCountSet(customerCount):
-	currentCustomerCount = customerCount
-	numOfCustomersToDisplay = min(MAX_NUM_OF_CUSTOMERS_TO_DISPLAY, customerCount)
-	
-func currentCustomerCountGet():
-	return currentCustomerCount
+
 
 func addCustomer(customer: Customer):
 	customers.push_back(customer)
-	currentCustomerCountSet(currentCustomerCount + 1)
+	currentCustomerCount += 1
 func removeCustomer():
-	currentCustomerCountSet(currentCustomerCount - 1)
+	currentCustomerCount -=1
 	return customers.pop_front()
 
 

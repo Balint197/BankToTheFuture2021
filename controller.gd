@@ -33,6 +33,9 @@ enum {START, DAY_INIT, DAY_RUNNING, DAY_ELAPSED, BETWEEN_DAYS}
 #MAIN STATES of the customer interaction
 enum {NO_CUSTOMER, INTERACTION_START, CHECK_SPECIAL, CUSTOMER_FINISHING, CUSTOMER_APPROACHING,
 	  PAYING, WAITING_FOR_CHANGE,}
+var d = {NO_CUSTOMER:"NO_CUSTOMER", INTERACTION_START:"INTERACTION_START", CHECK_SPECIAL:"CHECK_SPECIAL", 
+	 CUSTOMER_FINISHING:"CUSTOMER_FINISHING", CUSTOMER_APPROACHING:"CUSTOMER_APPROACHING",
+	  PAYING:"PAYING", WAITING_FOR_CHANGE:"WAITING_FOR_CHANGE"}
 
 #---------------------------START OF DECLARING VARIABLES-----------------------------------------------------#
 #variable for storing the main state of the application lifecycle
@@ -206,6 +209,7 @@ func customerStateMachine():
 	#{NO_CUSTOMER, INTERACTION_START, CHECK_SPECIAL, CUSTOMER_FINISHING, CUSTOMER_APPROACHING,
 	  #PAYING, WAITING_FOR_CHANGE,}
 	var nextState = interactionState
+	print(d[interactionState])
 	match interactionState:
 		NO_CUSTOMER:
 #			if firstCustomerCameIn:
@@ -228,7 +232,7 @@ func customerStateMachine():
 				var quantity = customer.get_quantity(myBuffet.currentPrice)
 				if quantity >= 0:
 					nextState = PAYING
-					emit_signal("customerShallPay",quantity * myBuffet.currentPrice)
+					emit_signal("customerShallPay")#,quantity * myBuffet.currentPrice)
 				else:
 					nextState = CUSTOMER_FINISHING
 					emit_signal("customerFinished")
@@ -236,7 +240,7 @@ func customerStateMachine():
 			if hasGoneOut:
 				var customer = myBuffet.removeCustomer()
 				hasGoneOut = false
-				if myBuffet.currentCustomersCount == 0:
+				if myBuffet.currentCustomerCount == 0:
 					nextState = NO_CUSTOMER
 				else:
 					nextState = CUSTOMER_APPROACHING
@@ -244,14 +248,17 @@ func customerStateMachine():
 		CUSTOMER_APPROACHING:
 			if nextCustomerArrivedToDesk:
 				nextCustomerArrivedToDesk = false
-				nextState = INTERACTION_START
-				emit_signal("StartInteraction")
+				nextState = PAYING
+				emit_signal("customeShallPay")
+				#emit_signal("StartInteraction")
 		PAYING:
 			
 			if hasPayed:
 				hasPayed = false
-				nextState = WAITING_FOR_CHANGE
-				emit_signal("waitForChange")
+				#nextState = WAITING_FOR_CHANGE
+				nextState = CUSTOMER_FINISHING
+				emit_signal("customerFinished")
+				#emit_signal("waitForChange")
 		WAITING_FOR_CHANGE:
 			if changeClaimed:
 				changeClaimed = false
