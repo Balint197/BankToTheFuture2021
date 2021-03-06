@@ -22,6 +22,8 @@ var marketing
 #copy of ticks per day from controller
 var ticks_per_day
 
+var price
+
 #total number of population
 const POPULATION = 1000
 #maximal satisfaction
@@ -168,6 +170,8 @@ func update_price(price):
 		if(new_amount>existing_amount):
 			for i in range(0, new_amount-existing_amount):
 				active_customers.push_back(Customer.new(type))
+	
+	self.price = price
 
 #gets a list of customer for buying
 #each customer is deciding whether to go to the buffet this time or not based on the satisfaction
@@ -201,6 +205,7 @@ func customer_shopped(customer, factor):
 func _init(price, marketing_value, ticks_per_second, seconds_per_day):
 	self.marketing = marketing_value
 	self.ticks_per_day = ticks_per_second * seconds_per_day
+	self.price = price
 	var amounts = get_amount_for_all(price)
 	init_active_customers(amounts, price)
 	self.satisfaction_degradation_per_tick = pow(0.5, 1/self.ticks_per_day)
