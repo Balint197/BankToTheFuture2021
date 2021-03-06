@@ -176,10 +176,10 @@ func _on_FrameUpdateTimer_timeout():
 			print(mainState)
 			nextState = DAY_RUNNING
 			if DEBUG:
-				myBuffet.addCustomer(customerClass.new('Customer_0'))
-				firstCustomerCameIn = true
-				myBuffet.addCustomer(customerClass.new('Customer_0'))
-				myBuffet.addCustomer(customerClass.new('Customer_0'))
+				myBuffet.addCustomer(customerClass.new('POOR'))
+				nextCustomerCanComeToDesk = true
+				myBuffet.addCustomer(customerClass.new('POOR'))
+				myBuffet.addCustomer(customerClass.new('POOR'))
 		DAY_RUNNING:
 			#collect ui data
 			collectUIData()
@@ -208,9 +208,9 @@ func customerStateMachine():
 	var nextState = interactionState
 	match interactionState:
 		NO_CUSTOMER:
-			if firstCustomerCameIn:
-				firstCustomerCameIn = false
-				emit_signal("firstCustomerComesIn", myBuffet.numOfCustomersToDisplay)
+#			if firstCustomerCameIn:
+#				firstCustomerCameIn = false
+#				emit_signal("firstCustomerComesIn")#, myBuffet.numOfCustomersToDisplay)
 			if nextCustomerCanComeToDesk:
 				nextState = CUSTOMER_APPROACHING 
 				nextCustomerCanComeToDesk = false
@@ -268,3 +268,47 @@ func _on_DayTimer_timeout():
 	print("Day elapsed")
 	isDayElapsed = true
 	emit_signal("dayElapsed")
+
+
+func _on_gameUI_customerDone():
+	pass # UI-os
+
+
+func _on_gameUI_changeClaimed():
+	changeClaimed = true
+
+
+func _on_gameUI_firstCustomerCameIn():
+	firstCustomerCameIn = true
+
+
+func _on_gameUI_hasGoneOut():
+	hasGoneOut = true
+
+
+func _on_gameUI_hasPayed():
+	hasPayed = true
+
+
+func _on_gameUI_nextCustomerArrivedToDesk():
+	nextCustomerArrivedToDesk = true
+
+
+func _on_gameUI_nextCustomerCanComeToDesk():
+	nextCustomerCanComeToDesk = true
+
+
+func _on_gameUI_noCard():
+	noCard = true
+
+
+func _on_gameUI_noSpecial():
+	noSpecial = true
+
+
+func _on_gameUI_specialsDone():
+	specialsDone = true
+
+
+func _on_gameUI_startOfInteractionDone():
+	startOfInteractionDone = true

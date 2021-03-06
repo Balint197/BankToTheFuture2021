@@ -12,8 +12,7 @@ func endOfDay():
 		1:
 			get_tree().change_scene("res://dayEnd2.tscn")
 		2:
-			get_tree().change_scene("rres://dayEnd3.tscn")
+			get_tree().change_scene("res://dayEnd3.tscn")
 
-
-func _on_DayTimer_timeout():
+func _on_controller_dayElapsed():
 	endOfDay()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://assets/greybutton_top.png" type="Texture" id=1]
 [ext_resource path="res://gameUI.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/buttons/backarrow.png" type="Texture" id=7]
 [ext_resource path="res://assets/fonts/font.tres" type="DynamicFont" id=8]
 [ext_resource path="res://assets/buttons/disabled.png" type="Texture" id=9]
+[ext_resource path="res://UI.gd" type="Script" id=10]
 
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 5 )
@@ -69,6 +70,7 @@ bg_color = Color( 0.282353, 0.529412, 0.407843, 1 )
 [node name="UI" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -77,7 +79,7 @@ __meta__ = {
 position = Vector2( 16.0182, -133.484 )
 
 [node name="DayTimer" type="Timer" parent="controller"]
-wait_time = 5.0
+wait_time = 20.0
 one_shot = true
 
 [node name="FrameUpdateTimer" type="Timer" parent="controller"]
@@ -474,8 +476,29 @@ __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
 }
+[connection signal="customeShallPay" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_customeShallPay"]
+[connection signal="customerComesIn" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_customerComesIn"]
+[connection signal="customerFinished" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_customerFinished"]
+[connection signal="dayElapsed" from="controller" to="." method="_on_controller_dayElapsed"]
+[connection signal="dayElapsed" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_dayElapsed"]
+[connection signal="firstCustomerComesIn" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_firstCustomerComesIn"]
+[connection signal="nextCustomerToDesk" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_nextCustomerToDesk"]
+[connection signal="showSpecial" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_showSpecial"]
+[connection signal="startInteraction" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_startInteraction"]
+[connection signal="waitForChange" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_waitForChange"]
 [connection signal="timeout" from="controller/DayTimer" to="controller" method="_on_DayTimer_timeout"]
 [connection signal="timeout" from="controller/FrameUpdateTimer" to="controller" method="_on_FrameUpdateTimer_timeout"]
+[connection signal="changeClaimed" from="ViewportContainer/Viewport/gameUI" to="controller" method="_on_gameUI_changeClaimed"]
+[connection signal="customerDone" from="ViewportContainer/Viewport/gameUI" to="controller" method="_on_gameUI_customerDone"]
+[connection signal="firstCustomerCameIn" from="ViewportContainer/Viewport/gameUI" to="controller" method="_on_gameUI_firstCustomerCameIn"]
+[connection signal="hasGoneOut" from="ViewportContainer/Viewport/gameUI" to="controller" method="_on_gameUI_hasGoneOut"]
+[connection signal="hasPayed" from="ViewportContainer/Viewport/gameUI" to="controller" method="_on_gameUI_hasPayed"]
+[connection signal="nextCustomerArrivedToDesk" from="ViewportContainer/Viewport/gameUI" to="controller" method="_on_gameUI_nextCustomerArrivedToDesk"]
+[connection signal="nextCustomerCanComeToDesk" from="ViewportContainer/Viewport/gameUI" to="controller" method="_on_gameUI_nextCustomerCanComeToDesk"]
+[connection signal="noCard" from="ViewportContainer/Viewport/gameUI" to="controller" method="_on_gameUI_noCard"]
+[connection signal="noSpecial" from="ViewportContainer/Viewport/gameUI" to="controller" method="_on_gameUI_noSpecial"]
+[connection signal="specialsDone" from="ViewportContainer/Viewport/gameUI" to="controller" method="_on_gameUI_specialsDone"]
+[connection signal="startOfInteractionDone" from="ViewportContainer/Viewport/gameUI" to="controller" method="_on_gameUI_startOfInteractionDone"]
 [connection signal="button_up" from="ColorRect/TextureButton" to="ColorRect" method="_on_TextureButton_button_up"]
 [connection signal="button_up" from="ColorRect/TextureButton2" to="ColorRect" method="_on_TextureButton2_button_up"]
 [connection signal="button_up" from="ColorRect/TextureButton3" to="ColorRect" method="_on_TextureButton3_button_up"]

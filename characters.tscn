@@ -2,7 +2,7 @@
 
 [ext_resource path="res://characters.gd" type="Script" id=1]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 resource_name = "walkOut"
 length = 2.0
 tracks/0/type = "value"
@@ -18,8 +18,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 500, 0 ) ]
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "walk_forward"
+[sub_resource type="Animation" id=2]
 length = 5.0
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:unit_offset")
@@ -42,6 +41,6 @@ script = ExtResource( 1 )
 offset = Vector2( 0, -5 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/walkOut = SubResource( 2 )
-anims/walk_forward = SubResource( 1 )
+anims/walkOut = SubResource( 1 )
+anims/walk_forward = SubResource( 2 )
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
