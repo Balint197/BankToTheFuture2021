@@ -18,10 +18,16 @@ _global_script_classes=[ {
 "class": "Customer",
 "language": "GDScript",
 "path": "res://Customer.gd"
+}, {
+"base": "Object",
+"class": "Population",
+"language": "GDScript",
+"path": "res://Population.gd"
 } ]
 _global_script_class_icons={
 "Buffet": "",
-"Customer": ""
+"Customer": "",
+"Population": ""
 }
 
 [application]
