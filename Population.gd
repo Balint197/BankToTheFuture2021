@@ -70,6 +70,14 @@ func get_amount_for_type(price, customer_type):
 	else:
 		return 0
 
+#get existing amount for type
+func get_existing_amount_for_type(type):
+	var count = 0
+	for i in range(0, active_customers.size()):
+		if(active_customers[i].category == type):
+			count += 1
+	return count
+
 #return a dictionary containing cusomer amounts for each category with a given price
 func get_amount_for_all(price):
 	var amount_for_types = {}
@@ -105,7 +113,22 @@ func delete_customer_array(active):
 		passive_customers.clear()
 
 func update_marketing(new_marketing):
+	var old_amounts = get_amount_for_all(self.price)
 	self.marketing = new_marketing
+	var new_amounts = get_amount_for_all(self.price)
+	#if the reach is bigger, add the difference, if lower, delete some customers
+	for type in new_amounts:
+		var difference = new_amounts[type] - old_amounts[type]
+		if(difference > 0):
+			for i in range(0, difference):
+				active_customers.push_back(Customer.new(type))
+		if(difference < 0):
+			for i in range(0, -1*difference):
+				var tmp_cust = active_customers[i]
+				# TODO: ez itt igénytelenkedés, inactive queue-ba kéne tennie
+				active_customers.erase(tmp_cust)
+				tmp_cust.free()
+	
 	
 func update_price(price):
 	var customers_to_delete = []
@@ -137,6 +160,14 @@ func update_price(price):
 		customers_to_delete[i].free()
 	customers_to_delete.clear()
 	
+	#check how many customer is reached with this price, add the necessary amount
+	var customers = get_amount_for_all(price)
+	for type in customers:
+		var new_amount = get_amount_for_type(price, type)
+		var existing_amount = get_existing_amount_for_type(type)
+		if(new_amount>existing_amount):
+			for i in range(0, new_amount-existing_amount):
+				active_customers.push_back(Customer.new(type))
 
 #gets a list of customer for buying
 #each customer is deciding whether to go to the buffet this time or not based on the satisfaction
