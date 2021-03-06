@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://assets/greybutton_top.png" type="Texture" id=1]
 [ext_resource path="res://gameUI.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/buttons/backarrow.png" type="Texture" id=7]
 [ext_resource path="res://assets/fonts/font.tres" type="DynamicFont" id=8]
 [ext_resource path="res://assets/buttons/disabled.png" type="Texture" id=9]
+[ext_resource path="res://UI.gd" type="Script" id=10]
 
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 5 )
@@ -69,6 +70,7 @@ bg_color = Color( 0.282353, 0.529412, 0.407843, 1 )
 [node name="UI" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -470,6 +472,9 @@ __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
 }
+[connection signal="newCustomer" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_newCustomer"]
+[connection signal="timeout" from="controller/DayTimer" to="." method="_on_DayTimer_timeout"]
+[connection signal="timeout" from="controller/DayTimer" to="controller" method="_on_DayTimer_timeout"]
 [connection signal="button_up" from="ColorRect/TextureButton" to="ColorRect" method="_on_TextureButton_button_up"]
 [connection signal="button_up" from="ColorRect/TextureButton2" to="ColorRect" method="_on_TextureButton2_button_up"]
 [connection signal="button_up" from="ColorRect/TextureButton3" to="ColorRect" method="_on_TextureButton3_button_up"]

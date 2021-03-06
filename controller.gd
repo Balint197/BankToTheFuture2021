@@ -1,6 +1,8 @@
 extends Node2D
 #Main controller 
 
+signal newCustomer
+
 #---------------------------START OF LOADING CLASSES---------------------------------------------------------#
 var buffetClass = preload("Buffet.gd")
 #---------------------------END OF LOADING CLASSES-----------------------------------------------------------#
@@ -36,7 +38,7 @@ func _ready():
 
 func _process(delta):
 	#Handle UI states here
-	
+
 	pass
 
 

@@ -28,9 +28,6 @@ func resize():
 	
 	scale = Vector2(1 - (unit_offset * minScale), 1 - (unit_offset * minScale))
 
-
-
-
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "walk_forward":
 		emit_signal("ordering")

@@ -78,3 +78,7 @@ func endMiniGame():
 
 func _on_Button2_pressed():
 	newCustomer()
+
+
+func _on_controller_newCustomer():
+	pass # Replace with function body.
