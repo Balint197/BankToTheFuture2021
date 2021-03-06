@@ -1,9 +1,9 @@
 [gd_resource type="DynamicFont" load_steps=2 format=2]
 
-[sub_resource type="DynamicFontData" id=5]
+[sub_resource type="DynamicFontData" id=1]
 font_path = "res://assets/fonts/Raleway-Regular.ttf"
 
 [resource]
 size = 34
 outline_color = Color( 0.858824, 0.372549, 0.372549, 1 )
-font_data = SubResource( 5 )
+font_data = SubResource( 1 )

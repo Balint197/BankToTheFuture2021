@@ -6,6 +6,7 @@ var Customer = preload("res://characters.tscn")
 func _ready():
 	var customer = Customer.instance()
 	
+	
 	pass
 
 

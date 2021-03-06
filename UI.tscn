@@ -35,7 +35,7 @@ corner_radius_bottom_left = 8
 texture = ExtResource( 4 )
 region_rect = Rect2( 0, 0, 100, 100 )
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=5]
 resource_name = "scroll"
 length = 0.8
 tracks/0/type = "bezier"
@@ -49,7 +49,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.8 )
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=6]
 resource_name = "scrollBack"
 length = 0.8
 tracks/0/type = "bezier"
@@ -63,7 +63,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.8 )
 }
 
-[sub_resource type="StyleBoxFlat" id=9]
+[sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 0.282353, 0.529412, 0.407843, 1 )
 
 [node name="UI" type="Control"]
@@ -75,6 +75,9 @@ __meta__ = {
 
 [node name="controller" parent="." instance=ExtResource( 3 )]
 position = Vector2( 16.0182, -133.484 )
+
+[node name="DayTimer" type="Timer" parent="controller"]
+wait_time = 5.0
 
 [node name="ViewportContainer" type="ViewportContainer" parent="."]
 margin_right = 600.0
@@ -162,8 +165,8 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ColorRect"]
-anims/scroll = SubResource( 7 )
-anims/scrollBack = SubResource( 8 )
+anims/scroll = SubResource( 5 )
+anims/scrollBack = SubResource( 6 )
 
 [node name="scrollingContainer" type="Control" parent="ColorRect"]
 anchor_left = 1.0
@@ -178,14 +181,13 @@ __meta__ = {
 [node name="TabContainer" type="TabContainer" parent="ColorRect/scrollingContainer"]
 anchor_bottom = 1.0
 margin_right = 1160.0
-custom_styles/panel = SubResource( 9 )
+custom_styles/panel = SubResource( 7 )
 tabs_visible = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="rent" type="Tabs" parent="ColorRect/scrollingContainer/TabContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 scrolling_enabled = false
@@ -256,6 +258,7 @@ __meta__ = {
 }
 
 [node name="marketing" type="Tabs" parent="ColorRect/scrollingContainer/TabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 scrolling_enabled = false
