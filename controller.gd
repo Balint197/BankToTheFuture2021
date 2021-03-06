@@ -157,7 +157,7 @@ func collectUIData():
 		#print("NOTNULL")
 		#  [ár 0...100, bérelt hely 0...3, marketing 0...100, chef 1...4, alapanyag 0...4]
 		print(uiData[0])
-		myBuffet.currentPrice =  uiData[0]
+		myBuffet.currentPrice = 2 *  uiData[0]
 		myBuffet.rentedSpace  =  uiData[1]
 		myBuffet.marketing =  50#   uiData[2]
 		myBuffet.chefs =         uiData[3]
@@ -175,6 +175,7 @@ func _on_FrameUpdateTimer_timeout():
 			print(mainState)
 			#init the bufet
 			myBuffet = buffetClass.new()
+			collectUIData()
 			myPopulation = populationClass.new(myBuffet.currentPrice, myBuffet.marketing, HOW_MANY_TICKS_IS_A_SECOND, HOW_MANY_SECONDS_IS_A_DAY)
 			start_to_dayInit = true
 			if start_to_dayInit:
@@ -199,7 +200,7 @@ func _on_FrameUpdateTimer_timeout():
 			myPopulation.update_price(myBuffet.currentPrice)
 			myPopulation.update_marketing(myBuffet.marketing)
 			customersgoing = myPopulation.get_customers_tick()
-			print(customersgoing)
+			print(customersgoing.size())
 			if customersgoing.size() > 0:
 				
 				for i in range(customersgoing.size()):

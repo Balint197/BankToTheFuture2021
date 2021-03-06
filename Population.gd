@@ -185,7 +185,7 @@ func get_customers_tick():
 		var probability_day = float(active_customers[i].satisfaction) / float(SATISFACTION_FREQUENCY)
 		var probability_tick = probability_day / float(self.ticks_per_day)
 		randomize()
-		if(rand_range(0, 1) <= probability_tick*100000000.0):
+		if(rand_range(0, 1) <= probability_tick):
 			going_customers.append(active_customers[i])
 			
 	#degrade inactive customers
