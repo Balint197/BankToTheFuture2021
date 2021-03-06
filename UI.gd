@@ -16,3 +16,7 @@ func endOfDay():
 func _on_controller_dayElapsed():
 	endOfDay()
 
+
+
+func _on_controller_firstCustomerComesIn():
+	pass # Replace with function body.

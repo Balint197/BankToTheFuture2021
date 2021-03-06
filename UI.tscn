@@ -616,6 +616,16 @@ __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
 }
+[connection signal="customeShallPay" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_customeShallPay"]
+[connection signal="customerComesIn" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_customerComesIn"]
+[connection signal="customerFinished" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_customerFinished"]
+[connection signal="customersEntering" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_customersEntering"]
+[connection signal="dayElapsed" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_dayElapsed"]
+[connection signal="firstCustomerComesIn" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_firstCustomerComesIn"]
+[connection signal="nextCustomerToDesk" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_nextCustomerToDesk"]
+[connection signal="showSpecial" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_showSpecial"]
+[connection signal="startInteraction" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_startInteraction"]
+[connection signal="waitForChange" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_waitForChange"]
 [connection signal="timeout" from="controller/DayTimer" to="controller" method="_on_DayTimer_timeout"]
 [connection signal="timeout" from="controller/FrameUpdateTimer" to="controller" method="_on_FrameUpdateTimer_timeout"]
 [connection signal="changeClaimed" from="ViewportContainer/Viewport/gameUI" to="controller" method="_on_gameUI_changeClaimed"]
