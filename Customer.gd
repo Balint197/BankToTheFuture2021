@@ -37,25 +37,25 @@ var b
 var CUSTOMER_0 = {
 	'q_min': 1,
 	'q_max': 4,
-	'p_0': 80,
+	'p_0': 66,
 	'satisfaction': 1
 }
 var CUSTOMER_1 = {
 	'q_min': 1,
 	'q_max': 4,
-	'p_0': 90,
+	'p_0': 85,
 	'satisfaction': 1
 }
 var CUSTOMER_2 = {
 	'q_min': 1,
 	'q_max': 4,
-	'p_0': 100,
+	'p_0': 105,
 	'satisfaction': 1
 }
 var CUSTOMER_3 = {
 	'q_min': 1,
 	'q_max': 4,
-	'p_0': 110,
+	'p_0': 145,
 	'satisfaction': 1
 }
 
