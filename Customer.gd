@@ -53,12 +53,12 @@ var CUSTOMER_3 = {
 	'p_0': 100,
 }
 
-#array to hold customer vategories (referenceable with string or number)
+#array to hold customer vategories, this maps string names with categories
 var CUSTOMER_CATEGORIES = {
-	'CUSTOMER_0': CUSTOMER_0,
-	'CUSTOMER_1': CUSTOMER_1,
-	'CUSTOMER_2': CUSTOMER_2,
-	'CUSTOMER_3': CUSTOMER_3
+	'POOR': CUSTOMER_0,
+	'MIDDLE_LOW': CUSTOMER_1,
+	'MIDDLE_HIGH': CUSTOMER_2,
+	'RICH': CUSTOMER_3
 }
 
 #init function when class is instanced
