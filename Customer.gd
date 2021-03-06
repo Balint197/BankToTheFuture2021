@@ -90,13 +90,13 @@ func _init(customer_category):
 func get_quantity(price):
 	#if price is not in the range, return -1
 	if((price < self.middle_price-self.dynamics) || (price > self.middle_price+self.dynamics)):
-		if DEBUG:
+		if CUSTOMER_DEBUG:
 			print('Customer doesn\'t buy anything because price {p} is out of range'.format({'p':price}))
 		return -1
 	
 	var q = 1/self.gradient*price - self.b/self.gradient
 	q = round(q) * self.multiplyer
-	if DEBUG:
+	if CUSTOMER_DEBUG:
 		print('Customer is buying {q} ice cream for {p} each'.format({'q':q, 'p':price}))
 	return q
 	

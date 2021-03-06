@@ -35,6 +35,7 @@ const SATISFACTION_FREQUENCY = 30
 var satisfaction_degradation_per_tick
 
 const DEBUG = true
+const POPULATION_DEBUG = false
 
 #instances of customer classes for calculations
 var customerTypes := {
@@ -60,7 +61,7 @@ func copy_customer(old_customer):
 
 func get_amount_for_type(price, customer_type):
 	if (customerTypes[customer_type].get_quantity(price) > 0):
-		if DEBUG:
+		if POPULATION_DEBUG:
 			print("Population is: {p}, ratio for type {t} is: {r}, reach is {m}, so there are {c} possible customers for this class".format({
 				'p': POPULATION,
 				't': customer_type,
