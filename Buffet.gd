@@ -7,7 +7,7 @@ const MAX_NUM_OF_CUSTOMERS_TO_DISPLAY = 4
 #--------------END OF CONSTANTS--------------------------------#
 ##################################################################################
 #--------------START OF SIGNALS--------------------------------#
-signal customerPayed
+signal customerFinished
 #--------------START OF SIGNALS--------------------------------#
 
 #--------------START OF UI CONTROLLABLE VARIABLES--------------------------------#
@@ -48,12 +48,11 @@ func currentCustomerCountSet(customerCount):
 func currentCustomerCountGet():
 	return currentCustomerCount
 
-func handleCustomer():
-	pass
+func addCustomer(customer: Customer):
+	customers.push_back(customer)
+	currentCustomerCountSet(currentCustomerCount + 1)
+func removeCustomer():
+	currentCustomerCountSet(currentCustomerCount - 1)
+	return customers.pop_front()
 
-func customerPays():
-	#remove customer from queue
-	var customer = customers.pop_front()
-	#emit signal
-	emit_signal("customerPayed", customer)
 
