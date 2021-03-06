@@ -1,10 +1,12 @@
 extends Node2D
 #Main controller 
-const DEBUG = true
-
+const DEBUG = false
+const HOW_MANY_TICKS_IS_A_SECOND = 10
+const HOW_MANY_SECONDS_IS_A_DAY = 30
 #---------------------------START OF LOADING CLASSES---------------------------------------------------------#
 var buffetClass = preload("Buffet.gd")
 var customerClass = preload("Customer.gd")
+#var populationClass = preload("Population.gd")
 #---------------------------END OF LOADING CLASSES-----------------------------------------------------------#
 
 #---------------------------START OF ACCESSING NODES---------------------------------------------------------#
@@ -26,6 +28,8 @@ signal waitForChange
 signal customerFinished
 signal dayElapsed
 
+signal customersEntering
+
 
 #MAIN STATES of the application lifecycle
 enum {START, DAY_INIT, DAY_RUNNING, DAY_ELAPSED, BETWEEN_DAYS}
@@ -33,14 +37,18 @@ enum {START, DAY_INIT, DAY_RUNNING, DAY_ELAPSED, BETWEEN_DAYS}
 #MAIN STATES of the customer interaction
 enum {NO_CUSTOMER, INTERACTION_START, CHECK_SPECIAL, CUSTOMER_FINISHING, CUSTOMER_APPROACHING,
 	  PAYING, WAITING_FOR_CHANGE,}
+var d = {NO_CUSTOMER:"NO_CUSTOMER", INTERACTION_START:"INTERACTION_START", CHECK_SPECIAL:"CHECK_SPECIAL", 
+	 CUSTOMER_FINISHING:"CUSTOMER_FINISHING", CUSTOMER_APPROACHING:"CUSTOMER_APPROACHING",
+	  PAYING:"PAYING", WAITING_FOR_CHANGE:"WAITING_FOR_CHANGE"}
 
 #---------------------------START OF DECLARING VARIABLES-----------------------------------------------------#
+var myPopulation
 #variable for storing the main state of the application lifecycle
 var mainState = START
 
 var interactionState := NO_CUSTOMER
 
-var firstCustomerCameIn   := false
+var firstCustomerCameIn         := false
 var nextCustomerCanComeToDesk   := false
 var nextCustomerArrivedToDesk   := false
 var startOfInteractionDone      := false
@@ -146,9 +154,9 @@ func _process(delta):
 func collectUIData():
 	var uiData = uiInterface.reportValues()
 	if myBuffet != null:
-		print("NOTNULL")
+		#print("NOTNULL")
 		#  [ár 0...100, bérelt hely 0...3, marketing 0...100, chef 1...4, alapanyag 0...4]
-		print(uiData[0])
+		#print(uiData[0])
 		myBuffet.currentPrice =  uiData[0]
 		myBuffet.rentedSpace  =  uiData[1]
 		myBuffet.marketing =     uiData[2]
@@ -161,12 +169,13 @@ func collectUIData():
 func _on_FrameUpdateTimer_timeout():
 	
 	var nextState = mainState
-	
+	var customers
 	match mainState:
 		START:
 			print(mainState)
 			#init the bufet
 			myBuffet = buffetClass.new()
+			myPopulation = Population.new(myBuffet.currentPrice, myBuffet.marketing, HOW_MANY_TICKS_IS_A_SECOND, HOW_MANY_SECONDS_IS_A_DAY)
 			start_to_dayInit = true
 			if start_to_dayInit:
 				nextState = DAY_INIT
@@ -175,6 +184,10 @@ func _on_FrameUpdateTimer_timeout():
 			dayTimer.start()
 			print(mainState)
 			nextState = DAY_RUNNING
+			nextCustomerCanComeToDesk = true
+			myBuffet.dailyIncome = 0.0
+			myBuffet.overallIncome = Globalis.allMoney
+			money.text = String(myBuffet.overallIncome)
 			if DEBUG:
 				myBuffet.addCustomer(customerClass.new('POOR'))
 				nextCustomerCanComeToDesk = true
@@ -183,22 +196,33 @@ func _on_FrameUpdateTimer_timeout():
 		DAY_RUNNING:
 			#collect ui data
 			collectUIData()
+			
+			customers = myPopulation.call("get_customers_tick")
+			if customers.size() > 0:
+				
+				for i in range(customers.size()):
+					myBuffet.addCustomer(customers[i])
+				print(customers)
+				print("CustomersSize")
+				print(customers.size())
+				emit_signal("customersEntering", customers.size())
+			myPopulation.update_price(myBuffet.currentPrice)
+			myPopulation.update_marketing(myBuffet.marketing)
 			#run the customer state machine
 			customerStateMachine()
+			money.text = String(myBuffet.overallIncome)
+			
 			if isDayElapsed:
 				nextState = DAY_ELAPSED
-			print(mainState)
+			
 		DAY_ELAPSED:
 			isDayElapsed = false
 			nextState = BETWEEN_DAYS
-			print(mainState)
+			
 		BETWEEN_DAYS:
-			print(mainState)
+			pass
 		_:
 			mainState = START
-			print("def")
-			print(mainState)
-			print("--def")
 	#Update the main state
 	mainState = nextState
 			
@@ -206,12 +230,13 @@ func customerStateMachine():
 	#{NO_CUSTOMER, INTERACTION_START, CHECK_SPECIAL, CUSTOMER_FINISHING, CUSTOMER_APPROACHING,
 	  #PAYING, WAITING_FOR_CHANGE,}
 	var nextState = interactionState
+	print(d[interactionState])
 	match interactionState:
 		NO_CUSTOMER:
 #			if firstCustomerCameIn:
 #				firstCustomerCameIn = false
 #				emit_signal("firstCustomerComesIn")#, myBuffet.numOfCustomersToDisplay)
-			if nextCustomerCanComeToDesk:
+			if nextCustomerCanComeToDesk && myBuffet.currentCustomerCount >0:
 				nextState = CUSTOMER_APPROACHING 
 				nextCustomerCanComeToDesk = false
 				emit_signal("nextCustomerToDesk")
@@ -224,19 +249,34 @@ func customerStateMachine():
 			if specialsDone || noSpecial:
 				specialsDone = false
 				noSpecial = false
-				var customer = myBuffet.customers[0]
-				var quantity = customer.get_quantity(myBuffet.currentPrice)
-				if quantity >= 0:
-					nextState = PAYING
-					emit_signal("customerShallPay",quantity * myBuffet.currentPrice)
-				else:
-					nextState = CUSTOMER_FINISHING
-					emit_signal("customerFinished")
+				
+#				if quantity >= 0:
+#					nextState = PAYING
+#					myBuffet.dailyIncome += myBuffet.currentPrice * quantity
+#					myBuffet.overallIncome += myBuffet.currentPrice * quantity
+#					money.text = myBuffet.overallIncome
+#					emit_signal("customerShallPay")#,quantity * myBuffet.currentPrice)
+#
+#				else:
+#					nextState = CUSTOMER_FINISHING
+#					emit_signal("customerFinished")
 		CUSTOMER_FINISHING:
 			if hasGoneOut:
+				
 				var customer = myBuffet.removeCustomer()
+				print(customer)
+				if customer != null:
+					
+					var quantity = customer.get_quantity(myBuffet.currentPrice)
+					if quantity >= 0:
+						myBuffet.dailyIncome += myBuffet.currentPrice * quantity
+						myBuffet.overallIncome += myBuffet.currentPrice * quantity
+						Globalis.allMoney = myBuffet.overallIncome
+						myPopulation.customer_shopped(customer, 1)
 				hasGoneOut = false
-				if myBuffet.currentCustomersCount == 0:
+				
+				
+				if myBuffet.currentCustomerCount == 0:
 					nextState = NO_CUSTOMER
 				else:
 					nextState = CUSTOMER_APPROACHING
@@ -244,14 +284,17 @@ func customerStateMachine():
 		CUSTOMER_APPROACHING:
 			if nextCustomerArrivedToDesk:
 				nextCustomerArrivedToDesk = false
-				nextState = INTERACTION_START
-				emit_signal("StartInteraction")
+				nextState = PAYING
+				emit_signal("customeShallPay")
+				#emit_signal("StartInteraction")
 		PAYING:
 			
 			if hasPayed:
 				hasPayed = false
-				nextState = WAITING_FOR_CHANGE
-				emit_signal("waitForChange")
+				#nextState = WAITING_FOR_CHANGE
+				nextState = CUSTOMER_FINISHING
+				emit_signal("customerFinished")
+				#emit_signal("waitForChange")
 		WAITING_FOR_CHANGE:
 			if changeClaimed:
 				changeClaimed = false

@@ -36,6 +36,10 @@ config/name="WarrensBuffet"
 run/main_scene="res://UI.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Globalis="*res://Globalis.gd"
+
 [display]
 
 window/size/width=600

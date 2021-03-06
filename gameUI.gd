@@ -29,7 +29,7 @@ func _ready():
 #	customer.connect("ordering", self, "handleOrder")
 #	customer.get_node("AnimationPlayer").play("walk_forward")
 
-	walkForward()
+	#walkForward()
 	pass
 
 func newCustomer():
@@ -47,7 +47,7 @@ func newCustomer():
 		if maxOffset < 0.9:
 			if firstCustomer == 0:
 				firstCustomer = 1
-				emit_signal("nextCustomerCanComeToDesk")
+				#emit_signal("nextCustomerCanComeToDesk")
 			var customer = Customer.instance()
 			$Path2D.add_child(customer)
 			customer.connect("ordering", self, "handleOrder")
@@ -55,8 +55,8 @@ func newCustomer():
 			customer.z_index = maxZ - 1
 			
 			
-	if ordering == 1:
-		buffer += 1
+#	if ordering == 1:
+#		buffer += 1
 
 
 func walkForward():
@@ -76,7 +76,6 @@ func startMiniGame():
 	$Button.visible = true
 	$Button.disabled = false
 	emit_signal("nextCustomerArrivedToDesk")
-	emit_signal("nextCustomerCanComeToDesk")
 	
 func _on_Button_pressed():
 	$Button.visible = false
@@ -86,7 +85,7 @@ func _on_Button_pressed():
 func endMiniGame():
 	ordering = 0
 	emit_signal("customerDone")
-	emit_signal("nextCustomerCanComeToDesk")
+	#emit_signal("nextCustomerCanComeToDesk")
 	emit_signal("hasPayed")
 	if buffer > 0:
 		newCustomer()
@@ -109,7 +108,8 @@ func _on_controller_newCustomer():
 
 
 func _on_controller_firstCustomerComesIn():
-	newCustomer()
+	#newCustomer()
+	pass
 
 
 func _on_controller_nextCustomerToDesk():
@@ -118,6 +118,7 @@ func _on_controller_nextCustomerToDesk():
 
 
 func _on_controller_customeShallPay():
+	#emit_signal("hasPayed")
 	pass
 
 
@@ -145,3 +146,7 @@ func _on_controller_startInteraction():
 
 func _on_controller_waitForChange():
 	emit_signal("changeClaimed")
+
+
+func _on_controller_customersEntering(num):
+	buffer = num
