@@ -1,40 +1,30 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://assets/greybutton_top.png" type="Texture" id=1]
 [ext_resource path="res://gameUI.tscn" type="PackedScene" id=2]
 [ext_resource path="res://controller.tscn" type="PackedScene" id=3]
-[ext_resource path="res://assets/buttons/zoldon.png" type="Texture" id=4]
-[ext_resource path="res://assets/buttons/zoldoff.png" type="Texture" id=5]
+[ext_resource path="res://assets/fonts/font_small.tres" type="DynamicFont" id=4]
+[ext_resource path="res://assets/menu/sprinkling.png" type="Texture" id=5]
 [ext_resource path="res://ColorRect.gd" type="Script" id=6]
 [ext_resource path="res://assets/buttons/backarrow.png" type="Texture" id=7]
 [ext_resource path="res://assets/fonts/font.tres" type="DynamicFont" id=8]
 [ext_resource path="res://assets/buttons/disabled.png" type="Texture" id=9]
 [ext_resource path="res://UI.gd" type="Script" id=10]
-
-[sub_resource type="StyleBoxTexture" id=1]
-texture = ExtResource( 5 )
-region_rect = Rect2( 0, 0, 100, 100 )
-
-[sub_resource type="StyleBoxTexture" id=2]
-texture = ExtResource( 5 )
-region_rect = Rect2( 0, 0, 100, 100 )
-
-[sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 0.105882, 0.552941, 0.521569, 1 )
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color( 0.494118, 0.380392, 0.0823529, 1 )
-border_blend = true
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
-[sub_resource type="StyleBoxTexture" id=4]
-texture = ExtResource( 4 )
-region_rect = Rect2( 0, 0, 100, 100 )
+[ext_resource path="res://assets/buttons/whiteoff.png" type="Texture" id=11]
+[ext_resource path="res://assets/buttons/whiteon.png" type="Texture" id=12]
+[ext_resource path="res://assets/buttons/slider/scroll.tres" type="StyleBox" id=13]
+[ext_resource path="res://assets/buttons/slider/grabber.tres" type="StyleBox" id=14]
+[ext_resource path="res://assets/buttons/slider/highlight.tres" type="StyleBox" id=15]
+[ext_resource path="res://assets/buttons/slider/press.tres" type="StyleBox" id=16]
+[ext_resource path="res://assets/menu/strawberry.png" type="Texture" id=17]
+[ext_resource path="res://assets/menu/cake.png" type="Texture" id=18]
+[ext_resource path="res://assets/menu/expensive.png" type="Texture" id=19]
+[ext_resource path="res://assets/menu/house.png" type="Texture" id=20]
+[ext_resource path="res://assets/menu/megaphone.png" type="Texture" id=21]
+[ext_resource path="res://assets/menu/cake-slice.png" type="Texture" id=22]
+[ext_resource path="res://assets/menu/chef(1).png" type="Texture" id=23]
+[ext_resource path="res://assets/menu/coins.png" type="Texture" id=24]
+[ext_resource path="res://assets/menu/unknown.png" type="Texture" id=25]
 
 [sub_resource type="Animation" id=5]
 resource_name = "scroll"
@@ -65,7 +55,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="StyleBoxFlat" id=7]
-bg_color = Color( 0.282353, 0.529412, 0.407843, 1 )
+bg_color = Color( 0.823529, 0.831373, 0.545098, 1 )
 
 [node name="UI" type="Control"]
 anchor_right = 1.0
@@ -86,8 +76,9 @@ one_shot = true
 autostart = true
 
 [node name="ViewportContainer" type="ViewportContainer" parent="."]
-margin_right = 600.0
-margin_bottom = 850.0
+margin_left = 1.49829
+margin_right = 601.498
+margin_bottom = 510.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -112,63 +103,124 @@ __meta__ = {
 }
 
 [node name="HScrollBar" type="HScrollBar" parent="ColorRect"]
-margin_left = 33.0
-margin_top = 27.0
-margin_right = 463.0
-margin_bottom = 74.0
-custom_styles/grabber_highlight = SubResource( 1 )
-custom_styles/grabber = SubResource( 2 )
-custom_styles/scroll = SubResource( 3 )
-custom_styles/grabber_pressed = SubResource( 4 )
+margin_left = 70.5689
+margin_top = 56.6706
+margin_right = 500.569
+margin_bottom = 103.671
+custom_styles/grabber_highlight = ExtResource( 15 )
+custom_styles/grabber = ExtResource( 14 )
+custom_styles/scroll = ExtResource( 13 )
+custom_styles/grabber_pressed = ExtResource( 16 )
 step = 1.0
 value = 50.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureButton" type="TextureButton" parent="ColorRect"]
-margin_left = 106.026
-margin_top = 147.964
-margin_right = 207.026
-margin_bottom = 247.964
-texture_normal = ExtResource( 5 )
-texture_pressed = ExtResource( 4 )
+[node name="coins" type="Sprite" parent="ColorRect/HScrollBar"]
+position = Vector2( 476.881, 22.5588 )
+scale = Vector2( 0.160746, 0.160746 )
+texture = ExtResource( 24 )
+
+[node name="unknown" type="Sprite" parent="ColorRect/HScrollBar"]
+position = Vector2( -32.1014, 25.9822 )
+scale = Vector2( 0.117584, 0.117584 )
+texture = ExtResource( 25 )
+
+[node name="Label" type="Label" parent="ColorRect/HScrollBar"]
+margin_left = 95.9406
+margin_top = -44.188
+margin_right = 343.941
+margin_bottom = -4.18805
+custom_fonts/font = ExtResource( 8 )
+text = "A termékek ára:"
+
+[node name="Label2" type="Label" parent="ColorRect"]
+margin_left = 105.079
+margin_top = 126.354
+margin_right = 475.079
+margin_bottom = 166.354
+custom_fonts/font = ExtResource( 8 )
+text = "Cukrászda fejlesztések:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureButton2" type="TextureButton" parent="ColorRect"]
-margin_left = 352.266
-margin_top = 155.957
-margin_right = 453.266
-margin_bottom = 255.957
-texture_normal = ExtResource( 5 )
-texture_pressed = ExtResource( 4 )
+[node name="GridContainer" type="GridContainer" parent="ColorRect"]
+margin_left = 94.0
+margin_top = 180.0
+margin_right = 555.0
+margin_bottom = 478.0
+custom_constants/vseparation = 80
+custom_constants/hseparation = 200
+columns = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureButton3" type="TextureButton" parent="ColorRect"]
-margin_left = 104.101
-margin_top = 315.956
-margin_right = 205.101
-margin_bottom = 415.956
-texture_normal = ExtResource( 5 )
-texture_pressed = ExtResource( 4 )
+[node name="TextureButton" type="TextureButton" parent="ColorRect/GridContainer"]
+modulate = Color( 0.341176, 0.439216, 0.34902, 1 )
+margin_right = 100.0
+margin_bottom = 100.0
+texture_normal = ExtResource( 11 )
+texture_pressed = ExtResource( 12 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureButton4" type="TextureButton" parent="ColorRect"]
-margin_left = 357.439
-margin_top = 328.037
-margin_right = 458.439
-margin_bottom = 428.037
-texture_normal = ExtResource( 5 )
-texture_pressed = ExtResource( 4 )
+[node name="house" type="Sprite" parent="ColorRect/GridContainer"]
+position = Vector2( 51.5455, 47.7939 )
+scale = Vector2( 0.162605, 0.162605 )
+texture = ExtResource( 20 )
+
+[node name="TextureButton2" type="TextureButton" parent="ColorRect/GridContainer"]
+modulate = Color( 0.341176, 0.439216, 0.34902, 1 )
+margin_left = 300.0
+margin_right = 400.0
+margin_bottom = 100.0
+texture_normal = ExtResource( 11 )
+texture_pressed = ExtResource( 12 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="TextureButton3" type="TextureButton" parent="ColorRect/GridContainer"]
+modulate = Color( 0.341176, 0.439216, 0.34902, 1 )
+margin_top = 180.0
+margin_right = 100.0
+margin_bottom = 280.0
+texture_normal = ExtResource( 11 )
+texture_pressed = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="megaphone" type="Sprite" parent="ColorRect/GridContainer"]
+position = Vector2( 352.203, 48.8794 )
+scale = Vector2( 0.150862, 0.150862 )
+texture = ExtResource( 21 )
+
+[node name="TextureButton4" type="TextureButton" parent="ColorRect/GridContainer"]
+modulate = Color( 0.341176, 0.439216, 0.34902, 1 )
+margin_left = 300.0
+margin_top = 180.0
+margin_right = 400.0
+margin_bottom = 280.0
+texture_normal = ExtResource( 11 )
+texture_pressed = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="cake-slice" type="Sprite" parent="ColorRect/GridContainer"]
+position = Vector2( 351.782, 227.421 )
+scale = Vector2( 0.150862, 0.150862 )
+texture = ExtResource( 22 )
+
+[node name="chef(1)" type="Sprite" parent="ColorRect/GridContainer"]
+position = Vector2( 49.4245, 229.36 )
+scale = Vector2( 0.168453, 0.168453 )
+texture = ExtResource( 23 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ColorRect"]
 anims/scroll = SubResource( 5 )
@@ -194,6 +246,7 @@ __meta__ = {
 }
 
 [node name="rent" type="Tabs" parent="ColorRect/scrollingContainer/TabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 scrolling_enabled = false
@@ -202,62 +255,63 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="ColorRect/scrollingContainer/TabContainer/rent"]
-margin_left = 71.0
-margin_top = 278.0
-margin_right = 356.0
-margin_bottom = 349.0
+margin_left = 103.963
+margin_top = 294.036
+margin_right = 425.963
+margin_bottom = 365.036
 custom_fonts/font = ExtResource( 8 )
-custom_colors/font_color = Color( 0.94902, 0.101961, 0.101961, 1 )
-text = "* leírás *"
+text = "Bérelj jobb éttermet!"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label2" type="Label" parent="ColorRect/scrollingContainer/TabContainer/rent"]
-margin_left = 60.5874
-margin_top = 350.195
-margin_right = 371.587
-margin_bottom = 421.195
+margin_left = 114.041
+margin_top = 376.031
+margin_right = 429.041
+margin_bottom = 447.031
 custom_fonts/font = ExtResource( 8 )
-custom_colors/font_color = Color( 0.94902, 0.101961, 0.101961, 1 )
-text = "Fejlesztés ára: 1000"
+text = "Fejlesztés ára: 5000"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="rent1" type="TextureButton" parent="ColorRect/scrollingContainer/TabContainer/rent"]
-margin_left = 48.0
-margin_top = 146.0
-margin_right = 148.0
-margin_bottom = 246.0
-texture_normal = ExtResource( 5 )
-texture_pressed = ExtResource( 4 )
+modulate = Color( 0.341176, 0.439216, 0.34902, 1 )
+margin_left = 60.5874
+margin_top = 153.363
+margin_right = 160.587
+margin_bottom = 253.363
+texture_normal = ExtResource( 11 )
+texture_pressed = ExtResource( 12 )
 texture_disabled = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="rent2" type="TextureButton" parent="ColorRect/scrollingContainer/TabContainer/rent"]
-margin_left = 204.0
-margin_top = 140.0
-margin_right = 304.0
-margin_bottom = 240.0
+modulate = Color( 0.341176, 0.439216, 0.34902, 1 )
+margin_left = 209.345
+margin_top = 153.363
+margin_right = 309.345
+margin_bottom = 253.363
 disabled = true
-texture_normal = ExtResource( 5 )
-texture_pressed = ExtResource( 4 )
+texture_normal = ExtResource( 11 )
+texture_pressed = ExtResource( 12 )
 texture_disabled = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="rent3" type="TextureButton" parent="ColorRect/scrollingContainer/TabContainer/rent"]
-margin_left = 364.0
-margin_top = 140.0
-margin_right = 464.0
-margin_bottom = 240.0
+modulate = Color( 0.341176, 0.439216, 0.34902, 1 )
+margin_left = 357.672
+margin_top = 153.363
+margin_right = 457.672
+margin_bottom = 253.363
 disabled = true
-texture_normal = ExtResource( 5 )
-texture_pressed = ExtResource( 4 )
+texture_normal = ExtResource( 11 )
+texture_pressed = ExtResource( 12 )
 texture_disabled = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -273,22 +327,27 @@ __meta__ = {
 }
 
 [node name="marketingLabel" type="Label" parent="ColorRect/scrollingContainer/TabContainer/marketing"]
-margin_left = 129.817
-margin_top = 296.109
-margin_right = 414.817
-margin_bottom = 367.109
+margin_left = 23.2363
+margin_top = 279.0
+margin_right = 524.236
+margin_bottom = 465.0
 custom_fonts/font = ExtResource( 8 )
-custom_colors/font_color = Color( 0.94902, 0.101961, 0.101961, 1 )
-text = "* leírás *"
+text = "Állítsd a marketingköltséget, ami alapján több vásárlód lehet!"
+align = 1
+autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="marketingSlider" type="HScrollBar" parent="ColorRect/scrollingContainer/TabContainer/marketing"]
-margin_left = 94.0
-margin_top = 152.0
-margin_right = 468.0
-margin_bottom = 210.0
+margin_left = 98.2427
+margin_top = 188.77
+margin_right = 472.243
+margin_bottom = 246.77
+custom_styles/grabber_highlight = ExtResource( 15 )
+custom_styles/grabber = ExtResource( 14 )
+custom_styles/scroll = ExtResource( 13 )
+custom_styles/grabber_pressed = ExtResource( 16 )
 step = 1.0
 value = 50.0
 __meta__ = {
@@ -296,7 +355,6 @@ __meta__ = {
 }
 
 [node name="chef" type="Tabs" parent="ColorRect/scrollingContainer/TabContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 scrolling_enabled = false
@@ -304,70 +362,117 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="chef1" type="TextureButton" parent="ColorRect/scrollingContainer/TabContainer/chef"]
-margin_left = 48.0
-margin_top = 126.0
-margin_right = 148.0
-margin_bottom = 226.0
+[node name="Label3" type="Label" parent="ColorRect/scrollingContainer/TabContainer/chef"]
+margin_left = 101.346
+margin_top = 7.16302
+margin_right = 530.346
+margin_bottom = 219.163
+custom_fonts/font = ExtResource( 4 )
+text = "Válassz cukrászt! A nagyobb fizetésigényű cukrászok ügyesebbek. "
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GridContainer" type="GridContainer" parent="ColorRect/scrollingContainer/TabContainer/chef"]
+margin_left = 154.305
+margin_top = 120.607
+margin_right = 454.305
+margin_bottom = 492.607
+custom_constants/vseparation = 10
+custom_constants/hseparation = 100
+columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="chef1" type="TextureButton" parent="ColorRect/scrollingContainer/TabContainer/chef/GridContainer"]
+modulate = Color( 0.341176, 0.439216, 0.34902, 1 )
+margin_right = 100.0
+margin_bottom = 100.0
 toggle_mode = true
 pressed = true
-texture_normal = ExtResource( 5 )
-texture_pressed = ExtResource( 4 )
+texture_normal = ExtResource( 11 )
+texture_pressed = ExtResource( 12 )
 texture_disabled = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="chef2" type="TextureButton" parent="ColorRect/scrollingContainer/TabContainer/chef"]
-margin_left = 224.0
-margin_top = 126.0
-margin_right = 324.0
-margin_bottom = 226.0
+[node name="chef2" type="TextureButton" parent="ColorRect/scrollingContainer/TabContainer/chef/GridContainer"]
+modulate = Color( 0.341176, 0.439216, 0.34902, 1 )
+margin_left = 200.0
+margin_right = 300.0
+margin_bottom = 100.0
 toggle_mode = true
-texture_normal = ExtResource( 5 )
-texture_pressed = ExtResource( 4 )
+texture_normal = ExtResource( 11 )
+texture_pressed = ExtResource( 12 )
 texture_disabled = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="chef3" type="TextureButton" parent="ColorRect/scrollingContainer/TabContainer/chef"]
-margin_left = 40.0
-margin_top = 262.0
-margin_right = 140.0
-margin_bottom = 362.0
+[node name="Label" type="Label" parent="ColorRect/scrollingContainer/TabContainer/chef/GridContainer"]
+margin_top = 110.0
+margin_right = 100.0
+margin_bottom = 181.0
+custom_fonts/font = ExtResource( 4 )
+text = "József
+500"
+
+[node name="Label2" type="Label" parent="ColorRect/scrollingContainer/TabContainer/chef/GridContainer"]
+margin_left = 200.0
+margin_top = 110.0
+margin_right = 300.0
+margin_bottom = 181.0
+custom_fonts/font = ExtResource( 4 )
+text = "Ágnes
+1000"
+
+[node name="chef3" type="TextureButton" parent="ColorRect/scrollingContainer/TabContainer/chef/GridContainer"]
+modulate = Color( 0.341176, 0.439216, 0.34902, 1 )
+margin_top = 191.0
+margin_right = 100.0
+margin_bottom = 291.0
 toggle_mode = true
-texture_normal = ExtResource( 5 )
-texture_pressed = ExtResource( 4 )
+texture_normal = ExtResource( 11 )
+texture_pressed = ExtResource( 12 )
 texture_disabled = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="chef4" type="TextureButton" parent="ColorRect/scrollingContainer/TabContainer/chef"]
-margin_left = 228.0
-margin_top = 262.0
-margin_right = 328.0
-margin_bottom = 362.0
+[node name="chef4" type="TextureButton" parent="ColorRect/scrollingContainer/TabContainer/chef/GridContainer"]
+modulate = Color( 0.341176, 0.439216, 0.34902, 1 )
+margin_left = 200.0
+margin_top = 191.0
+margin_right = 300.0
+margin_bottom = 291.0
 toggle_mode = true
-texture_normal = ExtResource( 5 )
-texture_pressed = ExtResource( 4 )
+texture_normal = ExtResource( 11 )
+texture_pressed = ExtResource( 12 )
 texture_disabled = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label3" type="Label" parent="ColorRect/scrollingContainer/TabContainer/chef"]
-margin_left = 65.8174
-margin_top = 388.109
-margin_right = 350.817
-margin_bottom = 459.109
-custom_fonts/font = ExtResource( 8 )
-custom_colors/font_color = Color( 0.94902, 0.101961, 0.101961, 1 )
-text = "* leírás *"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Label3" type="Label" parent="ColorRect/scrollingContainer/TabContainer/chef/GridContainer"]
+margin_top = 301.0
+margin_right = 100.0
+margin_bottom = 372.0
+custom_fonts/font = ExtResource( 4 )
+text = "Kálmán
+1500"
+
+[node name="Label4" type="Label" parent="ColorRect/scrollingContainer/TabContainer/chef/GridContainer"]
+margin_left = 200.0
+margin_top = 301.0
+margin_right = 300.0
+margin_bottom = 372.0
+custom_fonts/font = ExtResource( 4 )
+text = "József
+2000"
 
 [node name="ingredient" type="Tabs" parent="ColorRect/scrollingContainer/TabContainer"]
 visible = false
@@ -379,76 +484,110 @@ __meta__ = {
 }
 
 [node name="Label4" type="Label" parent="ColorRect/scrollingContainer/TabContainer/ingredient"]
-margin_left = 85.8174
-margin_top = 438.109
-margin_right = 370.817
-margin_bottom = 509.109
+margin_left = 50.4898
+margin_top = 410.205
+margin_right = 509.49
+margin_bottom = 493.205
 custom_fonts/font = ExtResource( 8 )
-custom_colors/font_color = Color( 0.94902, 0.101961, 0.101961, 1 )
-text = "* leírás *"
+text = "Használj minőségibb alapanyagokat!"
+align = 1
+autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ingredient1" type="TextureButton" parent="ColorRect/scrollingContainer/TabContainer/ingredient"]
-margin_left = 62.0
-margin_top = 124.0
-margin_right = 162.0
-margin_bottom = 224.0
+[node name="GridContainer" type="GridContainer" parent="ColorRect/scrollingContainer/TabContainer/ingredient"]
+margin_left = 96.8167
+margin_top = 109.133
+margin_right = 498.817
+margin_bottom = 443.133
+custom_constants/vseparation = 90
+custom_constants/hseparation = 150
+columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ingredient1" type="TextureButton" parent="ColorRect/scrollingContainer/TabContainer/ingredient/GridContainer"]
+modulate = Color( 0.341176, 0.439216, 0.34902, 1 )
+margin_right = 100.0
+margin_bottom = 100.0
 toggle_mode = true
-texture_normal = ExtResource( 5 )
-texture_pressed = ExtResource( 4 )
+texture_normal = ExtResource( 11 )
+texture_pressed = ExtResource( 12 )
 texture_disabled = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ingredient2" type="TextureButton" parent="ColorRect/scrollingContainer/TabContainer/ingredient"]
-margin_left = 258.0
-margin_top = 136.0
-margin_right = 358.0
-margin_bottom = 236.0
+[node name="ingredient2" type="TextureButton" parent="ColorRect/scrollingContainer/TabContainer/ingredient/GridContainer"]
+modulate = Color( 0.341176, 0.439216, 0.34902, 1 )
+margin_left = 250.0
+margin_right = 350.0
+margin_bottom = 100.0
 toggle_mode = true
-texture_normal = ExtResource( 5 )
-texture_pressed = ExtResource( 4 )
+texture_normal = ExtResource( 11 )
+texture_pressed = ExtResource( 12 )
 texture_disabled = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ingredient3" type="TextureButton" parent="ColorRect/scrollingContainer/TabContainer/ingredient"]
-margin_left = 66.0
-margin_top = 306.0
-margin_right = 166.0
-margin_bottom = 406.0
+[node name="ingredient3" type="TextureButton" parent="ColorRect/scrollingContainer/TabContainer/ingredient/GridContainer"]
+modulate = Color( 0.341176, 0.439216, 0.34902, 1 )
+margin_top = 190.0
+margin_right = 100.0
+margin_bottom = 290.0
 toggle_mode = true
-texture_normal = ExtResource( 5 )
-texture_pressed = ExtResource( 4 )
+texture_normal = ExtResource( 11 )
+texture_pressed = ExtResource( 12 )
 texture_disabled = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ingredient4" type="TextureButton" parent="ColorRect/scrollingContainer/TabContainer/ingredient"]
-margin_left = 266.0
-margin_top = 318.0
-margin_right = 366.0
-margin_bottom = 418.0
+[node name="ingredient4" type="TextureButton" parent="ColorRect/scrollingContainer/TabContainer/ingredient/GridContainer"]
+modulate = Color( 0.341176, 0.439216, 0.34902, 1 )
+margin_left = 250.0
+margin_top = 190.0
+margin_right = 350.0
+margin_bottom = 290.0
 toggle_mode = true
-texture_normal = ExtResource( 5 )
-texture_pressed = ExtResource( 4 )
+texture_normal = ExtResource( 11 )
+texture_pressed = ExtResource( 12 )
 texture_disabled = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="cake" type="Sprite" parent="ColorRect/scrollingContainer/TabContainer/ingredient/GridContainer"]
+position = Vector2( 47.9704, 231.743 )
+scale = Vector2( 0.135872, 0.135872 )
+texture = ExtResource( 18 )
+
+[node name="sprinkling" type="Sprite" parent="ColorRect/scrollingContainer/TabContainer/ingredient/GridContainer"]
+position = Vector2( 46.8055, 45.2715 )
+scale = Vector2( 0.135872, 0.135872 )
+texture = ExtResource( 5 )
+
+[node name="strawberry" type="Sprite" parent="ColorRect/scrollingContainer/TabContainer/ingredient/GridContainer"]
+position = Vector2( 296.201, 45.8755 )
+scale = Vector2( 0.153053, 0.153053 )
+texture = ExtResource( 17 )
+
+[node name="expensive" type="Sprite" parent="ColorRect/scrollingContainer/TabContainer/ingredient/GridContainer"]
+position = Vector2( 300.095, 237.979 )
+scale = Vector2( 0.154342, 0.154342 )
+texture = ExtResource( 19 )
 
 [node name="backButton" type="TextureButton" parent="ColorRect/scrollingContainer"]
+modulate = Color( 0.341176, 0.439216, 0.34902, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 21.0
-margin_top = 16.0
-margin_right = -599.0
-margin_bottom = -395.0
+margin_left = 22.4142
+margin_top = 20.2426
+margin_right = -597.586
+margin_bottom = -390.757
 texture_normal = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -499,16 +638,16 @@ __meta__ = {
 [connection signal="noSpecial" from="ViewportContainer/Viewport/gameUI" to="controller" method="_on_gameUI_noSpecial"]
 [connection signal="specialsDone" from="ViewportContainer/Viewport/gameUI" to="controller" method="_on_gameUI_specialsDone"]
 [connection signal="startOfInteractionDone" from="ViewportContainer/Viewport/gameUI" to="controller" method="_on_gameUI_startOfInteractionDone"]
-[connection signal="button_up" from="ColorRect/TextureButton" to="ColorRect" method="_on_TextureButton_button_up"]
-[connection signal="button_up" from="ColorRect/TextureButton2" to="ColorRect" method="_on_TextureButton2_button_up"]
-[connection signal="button_up" from="ColorRect/TextureButton3" to="ColorRect" method="_on_TextureButton3_button_up"]
-[connection signal="button_up" from="ColorRect/TextureButton4" to="ColorRect" method="_on_TextureButton4_button_up"]
+[connection signal="button_up" from="ColorRect/GridContainer/TextureButton" to="ColorRect" method="_on_TextureButton_button_up"]
+[connection signal="button_up" from="ColorRect/GridContainer/TextureButton2" to="ColorRect" method="_on_TextureButton2_button_up"]
+[connection signal="button_up" from="ColorRect/GridContainer/TextureButton3" to="ColorRect" method="_on_TextureButton3_button_up"]
+[connection signal="button_up" from="ColorRect/GridContainer/TextureButton4" to="ColorRect" method="_on_TextureButton4_button_up"]
 [connection signal="button_up" from="ColorRect/scrollingContainer/TabContainer/rent/rent1" to="ColorRect" method="_on_rent1_button_up"]
 [connection signal="button_up" from="ColorRect/scrollingContainer/TabContainer/rent/rent2" to="ColorRect" method="_on_rent2_button_up"]
 [connection signal="button_up" from="ColorRect/scrollingContainer/TabContainer/rent/rent3" to="ColorRect" method="_on_rent3_button_up"]
 [connection signal="value_changed" from="ColorRect/scrollingContainer/TabContainer/marketing/marketingSlider" to="ColorRect" method="_on_marketingSlider_value_changed"]
-[connection signal="button_down" from="ColorRect/scrollingContainer/TabContainer/chef/chef1" to="ColorRect" method="_on_chef1_button_down"]
-[connection signal="button_down" from="ColorRect/scrollingContainer/TabContainer/chef/chef2" to="ColorRect" method="_on_chef2_button_down"]
-[connection signal="button_down" from="ColorRect/scrollingContainer/TabContainer/chef/chef3" to="ColorRect" method="_on_chef3_button_down"]
-[connection signal="button_down" from="ColorRect/scrollingContainer/TabContainer/chef/chef4" to="ColorRect" method="_on_chef4_button_down"]
+[connection signal="button_down" from="ColorRect/scrollingContainer/TabContainer/chef/GridContainer/chef1" to="ColorRect" method="_on_chef1_button_down"]
+[connection signal="button_down" from="ColorRect/scrollingContainer/TabContainer/chef/GridContainer/chef2" to="ColorRect" method="_on_chef2_button_down"]
+[connection signal="button_down" from="ColorRect/scrollingContainer/TabContainer/chef/GridContainer/chef3" to="ColorRect" method="_on_chef3_button_down"]
+[connection signal="button_down" from="ColorRect/scrollingContainer/TabContainer/chef/GridContainer/chef4" to="ColorRect" method="_on_chef4_button_down"]
 [connection signal="button_down" from="ColorRect/scrollingContainer/backButton" to="ColorRect" method="_on_TextureButton_button_down"]

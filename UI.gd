@@ -1,6 +1,5 @@
 extends Control
 
-
 func _ready():
 	pass
 
@@ -16,3 +15,4 @@ func endOfDay():
 
 func _on_controller_dayElapsed():
 	endOfDay()
+
