@@ -6,7 +6,7 @@ const HOW_MANY_SECONDS_IS_A_DAY = 30
 #---------------------------START OF LOADING CLASSES---------------------------------------------------------#
 var buffetClass = preload("Buffet.gd")
 var customerClass = preload("Customer.gd")
-#var populationClass = preload("Population.gd")
+var populationClass = preload("Population.gd")
 #---------------------------END OF LOADING CLASSES-----------------------------------------------------------#
 
 #---------------------------START OF ACCESSING NODES---------------------------------------------------------#
@@ -142,7 +142,7 @@ func test():
 
 func _ready():
 	#money.text = "120"
-	test()
+	#test()
 	pass
 
 
@@ -156,10 +156,10 @@ func collectUIData():
 	if myBuffet != null:
 		#print("NOTNULL")
 		#  [ár 0...100, bérelt hely 0...3, marketing 0...100, chef 1...4, alapanyag 0...4]
-		#print(uiData[0])
+		print(uiData[0])
 		myBuffet.currentPrice =  uiData[0]
 		myBuffet.rentedSpace  =  uiData[1]
-		myBuffet.marketing =     uiData[2]
+		myBuffet.marketing =  50#   uiData[2]
 		myBuffet.chefs =         uiData[3]
 		myBuffet.rawMaterial =   uiData[4]
 
@@ -169,13 +169,13 @@ func collectUIData():
 func _on_FrameUpdateTimer_timeout():
 	
 	var nextState = mainState
-	var customers
+	var customersgoing = []
 	match mainState:
 		START:
 			print(mainState)
 			#init the bufet
 			myBuffet = buffetClass.new()
-			myPopulation = Population.new(myBuffet.currentPrice, myBuffet.marketing, HOW_MANY_TICKS_IS_A_SECOND, HOW_MANY_SECONDS_IS_A_DAY)
+			myPopulation = populationClass.new(myBuffet.currentPrice, myBuffet.marketing, HOW_MANY_TICKS_IS_A_SECOND, HOW_MANY_SECONDS_IS_A_DAY)
 			start_to_dayInit = true
 			if start_to_dayInit:
 				nextState = DAY_INIT
@@ -196,18 +196,19 @@ func _on_FrameUpdateTimer_timeout():
 		DAY_RUNNING:
 			#collect ui data
 			collectUIData()
-			
-			customers = myPopulation.call("get_customers_tick")
-			if customers.size() > 0:
-				
-				for i in range(customers.size()):
-					myBuffet.addCustomer(customers[i])
-				print(customers)
-				print("CustomersSize")
-				print(customers.size())
-				emit_signal("customersEntering", customers.size())
 			myPopulation.update_price(myBuffet.currentPrice)
 			myPopulation.update_marketing(myBuffet.marketing)
+			customersgoing = myPopulation.get_customers_tick()
+			print(customersgoing)
+			if customersgoing.size() > 0:
+				
+				for i in range(customersgoing.size()):
+					myBuffet.addCustomer(customersgoing[i])
+				print(customersgoing)
+				print("CustomersSize")
+				print(customersgoing.size())
+				emit_signal("customersEntering", customersgoing.size())
+			
 			#run the customer state machine
 			customerStateMachine()
 			money.text = String(myBuffet.overallIncome)
