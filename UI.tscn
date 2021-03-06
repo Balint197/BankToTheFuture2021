@@ -1,16 +1,70 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://assets/greybutton_top.png" type="Texture" id=1]
 [ext_resource path="res://gameUI.tscn" type="PackedScene" id=2]
 [ext_resource path="res://controller.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/buttons/zoldon.png" type="Texture" id=4]
+[ext_resource path="res://assets/buttons/zoldoff.png" type="Texture" id=5]
+[ext_resource path="res://ColorRect.gd" type="Script" id=6]
+[ext_resource path="res://assets/buttons/backarrow.png" type="Texture" id=7]
+[ext_resource path="res://assets/fonts/font.tres" type="DynamicFont" id=8]
+[ext_resource path="res://assets/buttons/disabled.png" type="Texture" id=9]
 
-[sub_resource type="DynamicFontData" id=1]
-font_path = "res://assets/fonts/Raleway-Regular.ttf"
+[sub_resource type="StyleBoxTexture" id=1]
+texture = ExtResource( 5 )
+region_rect = Rect2( 0, 0, 100, 100 )
 
-[sub_resource type="DynamicFont" id=2]
-size = 34
-outline_color = Color( 0.858824, 0.372549, 0.372549, 1 )
-font_data = SubResource( 1 )
+[sub_resource type="StyleBoxTexture" id=2]
+texture = ExtResource( 5 )
+region_rect = Rect2( 0, 0, 100, 100 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.105882, 0.552941, 0.521569, 1 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color( 0.494118, 0.380392, 0.0823529, 1 )
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxTexture" id=4]
+texture = ExtResource( 4 )
+region_rect = Rect2( 0, 0, 100, 100 )
+
+[sub_resource type="Animation" id=7]
+resource_name = "scroll"
+length = 0.8
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:rect_position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, -600, -0.99, -134.818, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.8 )
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "scrollBack"
+length = 0.8
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:rect_position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( -600, -0.25, 0, 0, 302.674, 0, -0.69, -3.70432, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.8 )
+}
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0.282353, 0.529412, 0.407843, 1 )
 
 [node name="UI" type="Control"]
 anchor_right = 1.0
@@ -21,14 +75,6 @@ __meta__ = {
 
 [node name="controller" parent="." instance=ExtResource( 3 )]
 position = Vector2( 16.0182, -133.484 )
-
-[node name="DayTimer" type="Timer" parent="controller"]
-wait_time = 5.0
-one_shot = true
-
-[node name="FrameUpdateTimer" type="Timer" parent="controller"]
-wait_time = 0.1
-autostart = true
 
 [node name="ViewportContainer" type="ViewportContainer" parent="."]
 margin_right = 600.0
@@ -51,42 +97,350 @@ margin_top = 500.0
 margin_right = 600.0
 margin_bottom = 1000.0
 color = Color( 0.823529, 0.831373, 0.545098, 1 )
+script = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="HScrollBar" type="HScrollBar" parent="ColorRect"]
-margin_left = 33.409
-margin_top = 26.7507
-margin_right = 469.409
-margin_bottom = 55.7507
+margin_left = 33.0
+margin_top = 27.0
+margin_right = 463.0
+margin_bottom = 74.0
+custom_styles/grabber_highlight = SubResource( 1 )
+custom_styles/grabber = SubResource( 2 )
+custom_styles/scroll = SubResource( 3 )
+custom_styles/grabber_pressed = SubResource( 4 )
+step = 1.0
+value = 50.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="Button" parent="ColorRect"]
-margin_left = 54.0
-margin_top = 97.0
-margin_right = 134.0
-margin_bottom = 146.0
+[node name="TextureButton" type="TextureButton" parent="ColorRect"]
+margin_left = 106.026
+margin_top = 147.964
+margin_right = 207.026
+margin_bottom = 247.964
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Button2" type="Button" parent="ColorRect"]
-margin_left = 225.543
-margin_top = 97.8409
-margin_right = 305.543
-margin_bottom = 146.841
+[node name="TextureButton2" type="TextureButton" parent="ColorRect"]
+margin_left = 352.266
+margin_top = 155.957
+margin_right = 453.266
+margin_bottom = 255.957
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Button3" type="Button" parent="ColorRect"]
-margin_left = 350.837
-margin_top = 100.364
-margin_right = 430.837
-margin_bottom = 149.364
+[node name="TextureButton3" type="TextureButton" parent="ColorRect"]
+margin_left = 104.101
+margin_top = 315.956
+margin_right = 205.101
+margin_bottom = 415.956
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Button4" type="Button" parent="ColorRect"]
-margin_left = 464.357
-margin_top = 95.3182
-margin_right = 544.357
-margin_bottom = 144.318
+[node name="TextureButton4" type="TextureButton" parent="ColorRect"]
+margin_left = 357.439
+margin_top = 328.037
+margin_right = 458.439
+margin_bottom = 428.037
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ColorRect"]
+anims/scroll = SubResource( 7 )
+anims/scrollBack = SubResource( 8 )
+
+[node name="scrollingContainer" type="Control" parent="ColorRect"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 741.0
+margin_bottom = 3.05176e-05
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TabContainer" type="TabContainer" parent="ColorRect/scrollingContainer"]
+anchor_bottom = 1.0
+margin_right = 1160.0
+custom_styles/panel = SubResource( 9 )
+tabs_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="rent" type="Tabs" parent="ColorRect/scrollingContainer/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+scrolling_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ColorRect/scrollingContainer/TabContainer/rent"]
+margin_left = 71.0
+margin_top = 278.0
+margin_right = 356.0
+margin_bottom = 349.0
+custom_fonts/font = ExtResource( 8 )
+custom_colors/font_color = Color( 0.94902, 0.101961, 0.101961, 1 )
+text = "* leírás *"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="ColorRect/scrollingContainer/TabContainer/rent"]
+margin_left = 60.5874
+margin_top = 350.195
+margin_right = 371.587
+margin_bottom = 421.195
+custom_fonts/font = ExtResource( 8 )
+custom_colors/font_color = Color( 0.94902, 0.101961, 0.101961, 1 )
+text = "Fejlesztés ára: 1000"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="rent1" type="TextureButton" parent="ColorRect/scrollingContainer/TabContainer/rent"]
+margin_left = 48.0
+margin_top = 146.0
+margin_right = 148.0
+margin_bottom = 246.0
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+texture_disabled = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="rent2" type="TextureButton" parent="ColorRect/scrollingContainer/TabContainer/rent"]
+margin_left = 204.0
+margin_top = 140.0
+margin_right = 304.0
+margin_bottom = 240.0
+disabled = true
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+texture_disabled = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="rent3" type="TextureButton" parent="ColorRect/scrollingContainer/TabContainer/rent"]
+margin_left = 364.0
+margin_top = 140.0
+margin_right = 464.0
+margin_bottom = 240.0
+disabled = true
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+texture_disabled = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="marketing" type="Tabs" parent="ColorRect/scrollingContainer/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+scrolling_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="marketingLabel" type="Label" parent="ColorRect/scrollingContainer/TabContainer/marketing"]
+margin_left = 129.817
+margin_top = 296.109
+margin_right = 414.817
+margin_bottom = 367.109
+custom_fonts/font = ExtResource( 8 )
+custom_colors/font_color = Color( 0.94902, 0.101961, 0.101961, 1 )
+text = "* leírás *"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="marketingSlider" type="HScrollBar" parent="ColorRect/scrollingContainer/TabContainer/marketing"]
+margin_left = 94.0
+margin_top = 152.0
+margin_right = 468.0
+margin_bottom = 210.0
+step = 1.0
+value = 50.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="chef" type="Tabs" parent="ColorRect/scrollingContainer/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+scrolling_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="chef1" type="TextureButton" parent="ColorRect/scrollingContainer/TabContainer/chef"]
+margin_left = 48.0
+margin_top = 126.0
+margin_right = 148.0
+margin_bottom = 226.0
+toggle_mode = true
+pressed = true
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+texture_disabled = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="chef2" type="TextureButton" parent="ColorRect/scrollingContainer/TabContainer/chef"]
+margin_left = 224.0
+margin_top = 126.0
+margin_right = 324.0
+margin_bottom = 226.0
+toggle_mode = true
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+texture_disabled = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="chef3" type="TextureButton" parent="ColorRect/scrollingContainer/TabContainer/chef"]
+margin_left = 40.0
+margin_top = 262.0
+margin_right = 140.0
+margin_bottom = 362.0
+toggle_mode = true
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+texture_disabled = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="chef4" type="TextureButton" parent="ColorRect/scrollingContainer/TabContainer/chef"]
+margin_left = 228.0
+margin_top = 262.0
+margin_right = 328.0
+margin_bottom = 362.0
+toggle_mode = true
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+texture_disabled = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="ColorRect/scrollingContainer/TabContainer/chef"]
+margin_left = 65.8174
+margin_top = 388.109
+margin_right = 350.817
+margin_bottom = 459.109
+custom_fonts/font = ExtResource( 8 )
+custom_colors/font_color = Color( 0.94902, 0.101961, 0.101961, 1 )
+text = "* leírás *"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ingredient" type="Tabs" parent="ColorRect/scrollingContainer/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+scrolling_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="ColorRect/scrollingContainer/TabContainer/ingredient"]
+margin_left = 85.8174
+margin_top = 438.109
+margin_right = 370.817
+margin_bottom = 509.109
+custom_fonts/font = ExtResource( 8 )
+custom_colors/font_color = Color( 0.94902, 0.101961, 0.101961, 1 )
+text = "* leírás *"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ingredient1" type="TextureButton" parent="ColorRect/scrollingContainer/TabContainer/ingredient"]
+margin_left = 62.0
+margin_top = 124.0
+margin_right = 162.0
+margin_bottom = 224.0
+toggle_mode = true
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+texture_disabled = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ingredient2" type="TextureButton" parent="ColorRect/scrollingContainer/TabContainer/ingredient"]
+margin_left = 258.0
+margin_top = 136.0
+margin_right = 358.0
+margin_bottom = 236.0
+toggle_mode = true
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+texture_disabled = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ingredient3" type="TextureButton" parent="ColorRect/scrollingContainer/TabContainer/ingredient"]
+margin_left = 66.0
+margin_top = 306.0
+margin_right = 166.0
+margin_bottom = 406.0
+toggle_mode = true
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+texture_disabled = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ingredient4" type="TextureButton" parent="ColorRect/scrollingContainer/TabContainer/ingredient"]
+margin_left = 266.0
+margin_top = 318.0
+margin_right = 366.0
+margin_bottom = 418.0
+toggle_mode = true
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+texture_disabled = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="backButton" type="TextureButton" parent="ColorRect/scrollingContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 21.0
+margin_top = 16.0
+margin_right = -599.0
+margin_bottom = -395.0
+texture_normal = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -105,7 +459,7 @@ margin_left = 38.0118
 margin_top = 3.99493
 margin_right = 241.012
 margin_bottom = 68.9949
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = ExtResource( 8 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "1000"
 __meta__ = {
@@ -113,5 +467,16 @@ __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
 }
-[connection signal="timeout" from="controller/DayTimer" to="controller" method="_on_DayTimer_timeout"]
-[connection signal="timeout" from="controller/FrameUpdateTimer" to="controller" method="_on_FrameUpdateTimer_timeout"]
+[connection signal="button_up" from="ColorRect/TextureButton" to="ColorRect" method="_on_TextureButton_button_up"]
+[connection signal="button_up" from="ColorRect/TextureButton2" to="ColorRect" method="_on_TextureButton2_button_up"]
+[connection signal="button_up" from="ColorRect/TextureButton3" to="ColorRect" method="_on_TextureButton3_button_up"]
+[connection signal="button_up" from="ColorRect/TextureButton4" to="ColorRect" method="_on_TextureButton4_button_up"]
+[connection signal="button_up" from="ColorRect/scrollingContainer/TabContainer/rent/rent1" to="ColorRect" method="_on_rent1_button_up"]
+[connection signal="button_up" from="ColorRect/scrollingContainer/TabContainer/rent/rent2" to="ColorRect" method="_on_rent2_button_up"]
+[connection signal="button_up" from="ColorRect/scrollingContainer/TabContainer/rent/rent3" to="ColorRect" method="_on_rent3_button_up"]
+[connection signal="value_changed" from="ColorRect/scrollingContainer/TabContainer/marketing/marketingSlider" to="ColorRect" method="_on_marketingSlider_value_changed"]
+[connection signal="button_down" from="ColorRect/scrollingContainer/TabContainer/chef/chef1" to="ColorRect" method="_on_chef1_button_down"]
+[connection signal="button_down" from="ColorRect/scrollingContainer/TabContainer/chef/chef2" to="ColorRect" method="_on_chef2_button_down"]
+[connection signal="button_down" from="ColorRect/scrollingContainer/TabContainer/chef/chef3" to="ColorRect" method="_on_chef3_button_down"]
+[connection signal="button_down" from="ColorRect/scrollingContainer/TabContainer/chef/chef4" to="ColorRect" method="_on_chef4_button_down"]
+[connection signal="button_down" from="ColorRect/scrollingContainer/backButton" to="ColorRect" method="_on_TextureButton_button_down"]
