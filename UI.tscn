@@ -1,16 +1,69 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://assets/greybutton_top.png" type="Texture" id=1]
 [ext_resource path="res://gameUI.tscn" type="PackedScene" id=2]
 [ext_resource path="res://controller.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/buttons/zoldon.png" type="Texture" id=4]
+[ext_resource path="res://assets/buttons/zoldoff.png" type="Texture" id=5]
+[ext_resource path="res://ColorRect.gd" type="Script" id=6]
+[ext_resource path="res://assets/buttons/backarrow.png" type="Texture" id=7]
+[ext_resource path="res://assets/fonts/font.tres" type="DynamicFont" id=8]
 
-[sub_resource type="DynamicFontData" id=1]
-font_path = "res://assets/fonts/Raleway-Regular.ttf"
+[sub_resource type="StyleBoxTexture" id=1]
+texture = ExtResource( 5 )
+region_rect = Rect2( 0, 0, 100, 100 )
 
-[sub_resource type="DynamicFont" id=2]
-size = 34
-outline_color = Color( 0.858824, 0.372549, 0.372549, 1 )
-font_data = SubResource( 1 )
+[sub_resource type="StyleBoxTexture" id=2]
+texture = ExtResource( 5 )
+region_rect = Rect2( 0, 0, 100, 100 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.105882, 0.552941, 0.521569, 1 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color( 0.494118, 0.380392, 0.0823529, 1 )
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxTexture" id=4]
+texture = ExtResource( 4 )
+region_rect = Rect2( 0, 0, 100, 100 )
+
+[sub_resource type="Animation" id=7]
+resource_name = "scroll"
+length = 0.8
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:rect_position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, -600, -0.99, -134.818, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.8 )
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "scrollBack"
+length = 0.8
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:rect_position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( -600, -0.25, 0, 0, 302.674, 0, -0.69, -3.70432, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.8 )
+}
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0.282353, 0.529412, 0.407843, 1 )
 
 [node name="UI" type="Control"]
 anchor_right = 1.0
@@ -43,39 +96,277 @@ margin_top = 500.0
 margin_right = 600.0
 margin_bottom = 1000.0
 color = Color( 0.823529, 0.831373, 0.545098, 1 )
+script = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="HScrollBar" type="HScrollBar" parent="ColorRect"]
-margin_left = 33.409
-margin_top = 26.7507
-margin_right = 469.409
-margin_bottom = 55.7507
+margin_left = 33.0
+margin_top = 27.0
+margin_right = 463.0
+margin_bottom = 74.0
+custom_styles/grabber_highlight = SubResource( 1 )
+custom_styles/grabber = SubResource( 2 )
+custom_styles/scroll = SubResource( 3 )
+custom_styles/grabber_pressed = SubResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Button" type="Button" parent="ColorRect"]
-margin_left = 54.0
-margin_top = 97.0
-margin_right = 134.0
-margin_bottom = 146.0
+[node name="TextureButton" type="TextureButton" parent="ColorRect"]
+margin_left = 24.0264
+margin_top = 269.964
+margin_right = 125.026
+margin_bottom = 369.964
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Button2" type="Button" parent="ColorRect"]
-margin_left = 225.543
-margin_top = 97.8409
-margin_right = 305.543
-margin_bottom = 146.841
+[node name="TextureButton2" type="TextureButton" parent="ColorRect"]
+margin_left = 158.266
+margin_top = 269.957
+margin_right = 259.266
+margin_bottom = 369.957
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Button3" type="Button" parent="ColorRect"]
-margin_left = 350.837
-margin_top = 100.364
-margin_right = 430.837
-margin_bottom = 149.364
+[node name="TextureButton3" type="TextureButton" parent="ColorRect"]
+margin_left = 282.101
+margin_top = 269.956
+margin_right = 383.101
+margin_bottom = 369.956
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Button4" type="Button" parent="ColorRect"]
-margin_left = 464.357
-margin_top = 95.3182
-margin_right = 544.357
-margin_bottom = 144.318
+[node name="TextureButton4" type="TextureButton" parent="ColorRect"]
+margin_left = 423.439
+margin_top = 272.037
+margin_right = 524.439
+margin_bottom = 372.037
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ColorRect"]
+anims/scroll = SubResource( 7 )
+anims/scrollBack = SubResource( 8 )
+
+[node name="scrollingContainer" type="Control" parent="ColorRect"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 741.0
+margin_bottom = 3.05176e-05
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TabContainer" type="TabContainer" parent="ColorRect/scrollingContainer"]
+anchor_bottom = 1.0
+margin_right = 1160.0
+custom_styles/panel = SubResource( 9 )
+tabs_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tabs" type="Tabs" parent="ColorRect/scrollingContainer/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+scrolling_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button4" type="Button" parent="ColorRect/scrollingContainer/TabContainer/Tabs"]
+margin_left = 69.8373
+margin_top = 112.339
+margin_right = 149.837
+margin_bottom = 161.339
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button3" type="Button" parent="ColorRect/scrollingContainer/TabContainer/Tabs"]
+margin_left = 207.985
+margin_top = 114.399
+margin_right = 287.985
+margin_bottom = 163.399
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ColorRect/scrollingContainer/TabContainer/Tabs"]
+margin_left = 29.0
+margin_top = 198.0
+margin_right = 314.0
+margin_bottom = 269.0
+custom_fonts/font = ExtResource( 8 )
+custom_colors/font_color = Color( 0.94902, 0.101961, 0.101961, 1 )
+text = "* leírás *"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="ColorRect/scrollingContainer/TabContainer/Tabs"]
+margin_left = 30.5874
+margin_top = 274.195
+margin_right = 315.587
+margin_bottom = 345.195
+custom_fonts/font = ExtResource( 8 )
+custom_colors/font_color = Color( 0.94902, 0.101961, 0.101961, 1 )
+text = "Fejlesztés ára: 1000"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tabs2" type="Tabs" parent="ColorRect/scrollingContainer/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_right = -4.0
+margin_bottom = -4.0
+scrolling_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button4" type="Button" parent="ColorRect/scrollingContainer/TabContainer/Tabs2"]
+margin_left = 59.1465
+margin_top = 102.945
+margin_right = 139.147
+margin_bottom = 151.945
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button3" type="Button" parent="ColorRect/scrollingContainer/TabContainer/Tabs2"]
+margin_left = 277.669
+margin_top = 27.2205
+margin_right = 357.669
+margin_bottom = 76.2205
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="ColorRect/scrollingContainer/TabContainer/Tabs2"]
+margin_left = 95.8174
+margin_top = 254.109
+margin_right = 380.817
+margin_bottom = 325.109
+custom_fonts/font = ExtResource( 8 )
+custom_colors/font_color = Color( 0.94902, 0.101961, 0.101961, 1 )
+text = "* leírás *"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tabs3" type="Tabs" parent="ColorRect/scrollingContainer/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 8.0
+margin_right = -4.0
+margin_bottom = -4.0
+scrolling_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button4" type="Button" parent="ColorRect/scrollingContainer/TabContainer/Tabs3"]
+margin_left = 59.1465
+margin_top = 102.945
+margin_right = 139.147
+margin_bottom = 151.945
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button3" type="Button" parent="ColorRect/scrollingContainer/TabContainer/Tabs3"]
+margin_left = 277.669
+margin_top = 27.2205
+margin_right = 357.669
+margin_bottom = 76.2205
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="ColorRect/scrollingContainer/TabContainer/Tabs3"]
+margin_left = 95.8174
+margin_top = 246.109
+margin_right = 380.817
+margin_bottom = 317.109
+custom_fonts/font = ExtResource( 8 )
+custom_colors/font_color = Color( 0.94902, 0.101961, 0.101961, 1 )
+text = "* leírás *"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tabs4" type="Tabs" parent="ColorRect/scrollingContainer/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 8.0
+margin_right = -4.0
+margin_bottom = -4.0
+scrolling_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button4" type="Button" parent="ColorRect/scrollingContainer/TabContainer/Tabs4"]
+margin_left = 59.1465
+margin_top = 102.945
+margin_right = 139.147
+margin_bottom = 151.945
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button3" type="Button" parent="ColorRect/scrollingContainer/TabContainer/Tabs4"]
+margin_left = 277.669
+margin_top = 27.2205
+margin_right = 357.669
+margin_bottom = 76.2205
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="ColorRect/scrollingContainer/TabContainer/Tabs4"]
+margin_left = 95.8174
+margin_top = 246.109
+margin_right = 380.817
+margin_bottom = 317.109
+custom_fonts/font = ExtResource( 8 )
+custom_colors/font_color = Color( 0.94902, 0.101961, 0.101961, 1 )
+text = "* leírás *"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="backButton" type="TextureButton" parent="ColorRect/scrollingContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 21.0
+margin_top = 16.0
+margin_right = -599.0
+margin_bottom = -395.0
+texture_normal = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -94,7 +385,7 @@ margin_left = 38.0118
 margin_top = 3.99493
 margin_right = 241.012
 margin_bottom = 68.9949
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = ExtResource( 8 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "1000"
 __meta__ = {
@@ -102,3 +393,8 @@ __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
 }
+[connection signal="button_up" from="ColorRect/TextureButton" to="ColorRect" method="_on_TextureButton_button_up"]
+[connection signal="button_up" from="ColorRect/TextureButton2" to="ColorRect" method="_on_TextureButton2_button_up"]
+[connection signal="button_up" from="ColorRect/TextureButton3" to="ColorRect" method="_on_TextureButton3_button_up"]
+[connection signal="button_up" from="ColorRect/TextureButton4" to="ColorRect" method="_on_TextureButton4_button_up"]
+[connection signal="button_down" from="ColorRect/scrollingContainer/backButton" to="ColorRect" method="_on_TextureButton_button_down"]
