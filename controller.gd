@@ -28,9 +28,28 @@ var myBuffet : Buffet
 
 #---------------------------END OF DECLARING VARIABLES-------------------------------------------------------#
 
+func test():
+	priceSlider.value = 100
+	var price = priceSlider.value
+	#var marketing = get_tree().get_root().get_node("UI/ColorRect").reportValues()[2]
+	var marketing = 20
+	var population = Population.new(price, marketing)
+	print('Population is done, there are {a} active customers and {p} passive ones.'.format({
+		'a': population.active_customers.size(),
+		'p': population.passive_customers.size()
+		}))
+	print('Deleting active customers...')
+	population.call("delete_customer_array", true)
+	print('Deleting passive customers...')
+	population.call("delete_customer_array", false)
+	print('After deleting, there are {a} active customers and {p} passive ones.'.format({
+		'a': population.active_customers.size(),
+		'p': population.passive_customers.size()
+		}))
+
 func _ready():
 	#money.text = "120"
-
+	test()
 	pass
 
 
