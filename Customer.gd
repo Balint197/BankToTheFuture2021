@@ -8,7 +8,8 @@ const CUSTOMER_DEBUG = false
 const DYNAMICS = 0.1
 const MULT_MIN = 1
 const MULT_MAX = 4
-const SATISFACTION_DEGRADATION = 0.2
+#satisfaction timeout is in days
+const SATISFACTION_TIMEOUT = 30
 
 
 #parameters that describe the type of customer:
@@ -100,8 +101,8 @@ func get_quantity(price):
 	return q
 	
 #timeout for satisfaction
-func degrade_satisfaction():
-	self.satisfaction *= SATISFACTION_DEGRADATION
+func degrade_satisfaction(degdaration_per_tick):
+	self.satisfaction *= degdaration_per_tick
 	return
 	
 #upgrade satisfaction after a good buy

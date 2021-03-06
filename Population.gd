@@ -26,8 +26,11 @@ var ticks_per_day
 const POPULATION = 1000
 #maximal satisfaction
 const MAX_SATISFACTION = 4
-#with satisfaction of 1, the customer goes once in this period (days)
+#minimal satisfaction
+const MIN_SATISFACTION = 0.5
+#time in days in which the satisfaction halves
 const SATISFACTION_FREQUENCY = 30
+var satisfaction_degradation_per_tick
 
 const DEBUG = true
 
@@ -137,6 +140,7 @@ func update_price(price):
 
 #gets a list of customer for buying
 #each customer is deciding whether to go to the buffet this time or not based on the satisfaction
+#additionally, degrade satisfaction of inactive customers
 func get_customers_tick():
 	var going_customers = []
 	for i in range(0, active_customers.size()):
@@ -144,6 +148,15 @@ func get_customers_tick():
 		var probability_tick = probability_day / float(self.ticks_per_day)
 		if(rand_range(0, 1) <= probability_tick):
 			going_customers.push_back(active_customers[i])
+			
+	#degrade inactive customers
+	for i in range(0, passive_customers.size()):
+		passive_customers[i].call("degrade_satisfaction", self.satisfaction_degradation_per_tick)
+		if(passive_customers[i].satisfaction < MIN_SATISFACTION):
+			var tmp_cust = passive_customers[i]
+			passive_customers.erase(tmp_cust)
+			tmp_cust.free()
+	
 	return going_customers
 
 #call this when a customer has finished shopping
@@ -159,7 +172,7 @@ func _init(price, marketing_value, ticks_per_second, seconds_per_day):
 	self.ticks_per_day = ticks_per_second * seconds_per_day
 	var amounts = get_amount_for_all(price)
 	init_active_customers(amounts, price)
-	
+	self.satisfaction_degradation_per_tick = pow(0.5, 1/self.ticks_per_day)
 	
 	
 
