@@ -28,6 +28,7 @@ var rest_3 = preload("res://assets/bg/rest_3.jpg")
 
 
 func _ready():
+	marketing = 50
 	pass # Replace with function body.
 
 
