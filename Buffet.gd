@@ -10,10 +10,10 @@ var RENT_OPTIONS = [
 ]
 
 var CHEF_OPTIONS = [
-	{'price': 100, 'satisfaction': 0},
-	{'price': 200, 'satisfaction': 0.1},
-	{'price': 500, 'satisfaction': 0.3},
-	{'price': 1000, 'satisfaction': 0.5},
+	{'price': 500, 'satisfaction': 0},
+	{'price': 1000, 'satisfaction': 0.1},
+	{'price': 1500, 'satisfaction': 0.3},
+	{'price': 2000, 'satisfaction': 0.5},
 ]
 
 #100% reach costs this amount
@@ -100,6 +100,18 @@ func getReputation():
 		}
 	))
 	return reputation
-	
+
+func getPrice(what):
+	match what:
+		'chef':
+			return CHEF_OPTIONS[int(self.chefs)-1]['price']
+		'rent':
+			return RENT_OPTIONS[int(self.rentedSpace)]['price']
+		'marketing':
+			return self.marketing/100.0 * MARKETING_PRICE
+		'material':
+			return self.rawMaterial
+		_:
+			return -1
 
 
