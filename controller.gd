@@ -3,17 +3,21 @@ extends Node2D
 const DEBUG = false
 const HOW_MANY_TICKS_IS_A_SECOND = 10
 const HOW_MANY_SECONDS_IS_A_DAY = 30
+const RAW_MATERIAL_PRICE = 20
 #---------------------------START OF LOADING CLASSES---------------------------------------------------------#
 var buffetClass = preload("Buffet.gd")
 var customerClass = preload("Customer.gd")
 var populationClass = preload("Population.gd")
 #---------------------------END OF LOADING CLASSES-----------------------------------------------------------#
 
+
 #---------------------------START OF ACCESSING NODES---------------------------------------------------------#
 onready var UI = get_tree().get_root().get_node("UI")
 onready var money = get_tree().get_root().get_node("UI/TextureRect/Label")
 onready var priceSlider = get_tree().get_root().get_node("UI/ColorRect/HScrollBar")
 onready var uiInterface = get_tree().get_root().get_node("UI/ColorRect")
+onready var marketingSlider = get_tree().get_root().get_node("UI/ColorRect/scrollingContainer/TabContainer/marketing/marketingSlider")
+onready var rentPriceText = get_tree().get_root().get_node("UI/ColorRect/scrollingContainer/TabContainer/rent/Label2")
 
 onready var dayTimer = get_tree().get_root().get_node("UI/controller/DayTimer")
 #---------------------------END OF ACCESSING NODES-----------------------------------------------------------#
@@ -156,10 +160,10 @@ func collectUIData():
 	if myBuffet != null:
 		#print("NOTNULL")
 		#  [ár 0...100, bérelt hely 0...3, marketing 0...100, chef 1...4, alapanyag 0...4]
-		print(uiData[0])
+		print(uiData)
 		myBuffet.currentPrice = 2 *  uiData[0]
 		myBuffet.rentedSpace  =  uiData[1]
-		myBuffet.marketing =  50#   uiData[2]
+		myBuffet.marketing =     uiData[2]
 		myBuffet.chefs =         uiData[3]
 		myBuffet.rawMaterial =   uiData[4]
 
@@ -175,6 +179,7 @@ func _on_FrameUpdateTimer_timeout():
 			print(mainState)
 			#init the bufet
 			myBuffet = buffetClass.new()
+			marketingSlider.value = 50;
 			collectUIData()
 			myPopulation = populationClass.new(myBuffet.currentPrice, myBuffet.marketing, HOW_MANY_TICKS_IS_A_SECOND, HOW_MANY_SECONDS_IS_A_DAY)
 			start_to_dayInit = true
@@ -200,20 +205,21 @@ func _on_FrameUpdateTimer_timeout():
 			myPopulation.update_price(myBuffet.currentPrice)
 			myPopulation.update_marketing(myBuffet.marketing)
 			customersgoing = myPopulation.get_customers_tick()
-			print(customersgoing.size())
-			print('Buffersize: {a}'.format({'a' : myBuffet.currentCustomerCount}))
+			#print(customersgoing.size())
+			print('Buffersize of Buffet: {a}'.format({'a' : myBuffet.currentCustomerCount}))
 			if customersgoing.size() > 0:
 				
 				for i in range(customersgoing.size()):
 					myBuffet.addCustomer(customersgoing[i])
-				print(customersgoing)
-				print("CustomersSize")
-				print(customersgoing.size())
+				#print(customersgoing)
+				print("Customerts coming in from population: {p}".format({'p':customersgoing.size()}))
+				#print(customersgoing.size())
 				emit_signal("customersEntering", customersgoing.size())
 			
 			#run the customer state machine
 			customerStateMachine()
 			money.text = String(myBuffet.overallIncome)
+			rentPriceText.text = String("Büfé bérleti díja: " + String(myBuffet.getPrice('rent')))
 			
 			if isDayElapsed:
 				nextState = DAY_ELAPSED
@@ -223,6 +229,9 @@ func _on_FrameUpdateTimer_timeout():
 			nextState = BETWEEN_DAYS
 			
 		BETWEEN_DAYS:
+			print("Day elapsed, paying bills, then new day coming")
+			myBuffet.payBills()
+			nextState = DAY_INIT
 			pass
 		_:
 			mainState = START
@@ -272,10 +281,17 @@ func customerStateMachine():
 					
 					var quantity = customer.get_quantity(myBuffet.currentPrice)
 					if quantity >= 0:
-						myBuffet.dailyIncome += myBuffet.currentPrice * quantity
-						myBuffet.overallIncome += myBuffet.currentPrice * quantity
+						var profit = (myBuffet.currentPrice - myBuffet.rawMaterial*RAW_MATERIAL_PRICE) * quantity
+						myBuffet.dailyIncome += profit
+						myBuffet.overallIncome += profit
 						Globalis.allMoney = myBuffet.overallIncome
-						myPopulation.customer_shopped(customer, 1)
+						var reputation = myBuffet.getReputation()
+						print("Chef: {c}, Space: {s}, Material: {m}".format({
+							'c': myBuffet.chefs,
+							's': myBuffet.rentedSpace,
+							'm': myBuffet.rawMaterial
+						}))
+						myPopulation.customer_shopped(customer, reputation)
 				hasGoneOut = false
 				
 				
