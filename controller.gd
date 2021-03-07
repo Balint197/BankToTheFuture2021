@@ -3,17 +3,20 @@ extends Node2D
 const DEBUG = false
 const HOW_MANY_TICKS_IS_A_SECOND = 10
 const HOW_MANY_SECONDS_IS_A_DAY = 30
+const RAW_MATERIAL_PRICE = 20
 #---------------------------START OF LOADING CLASSES---------------------------------------------------------#
 var buffetClass = preload("Buffet.gd")
 var customerClass = preload("Customer.gd")
 var populationClass = preload("Population.gd")
 #---------------------------END OF LOADING CLASSES-----------------------------------------------------------#
 
+
 #---------------------------START OF ACCESSING NODES---------------------------------------------------------#
 onready var UI = get_tree().get_root().get_node("UI")
 onready var money = get_tree().get_root().get_node("UI/TextureRect/Label")
 onready var priceSlider = get_tree().get_root().get_node("UI/ColorRect/HScrollBar")
 onready var uiInterface = get_tree().get_root().get_node("UI/ColorRect")
+onready var marketingSlider = get_tree().get_root().get_node("UI/ColorRect/scrollingContainer/TabContainer/marketing/marketingSlider")
 
 onready var dayTimer = get_tree().get_root().get_node("UI/controller/DayTimer")
 #---------------------------END OF ACCESSING NODES-----------------------------------------------------------#
@@ -156,7 +159,7 @@ func collectUIData():
 	if myBuffet != null:
 		#print("NOTNULL")
 		#  [ár 0...100, bérelt hely 0...3, marketing 0...100, chef 1...4, alapanyag 0...4]
-		print(uiData[0])
+		print(uiData)
 		myBuffet.currentPrice = 2 *  uiData[0]
 		myBuffet.rentedSpace  =  uiData[1]
 		myBuffet.marketing =     uiData[2]
@@ -175,6 +178,7 @@ func _on_FrameUpdateTimer_timeout():
 			print(mainState)
 			#init the bufet
 			myBuffet = buffetClass.new()
+			marketingSlider.value = 50;
 			collectUIData()
 			myPopulation = populationClass.new(myBuffet.currentPrice, myBuffet.marketing, HOW_MANY_TICKS_IS_A_SECOND, HOW_MANY_SECONDS_IS_A_DAY)
 			start_to_dayInit = true
@@ -275,11 +279,16 @@ func customerStateMachine():
 					
 					var quantity = customer.get_quantity(myBuffet.currentPrice)
 					if quantity >= 0:
-						var profit = (myBuffet.currentPrice - myBuffet.rawMaterial) * quantity
+						var profit = (myBuffet.currentPrice - myBuffet.rawMaterial*RAW_MATERIAL_PRICE) * quantity
 						myBuffet.dailyIncome += profit
 						myBuffet.overallIncome += profit
 						Globalis.allMoney = myBuffet.overallIncome
 						var reputation = 1
+						print("Chef: {c}, Space: {s}, Material: {m}".format({
+							'c': myBuffet.chefs,
+							's': myBuffet.rentedSpace,
+							'm': myBuffet.rawMaterial
+						}))
 						myPopulation.customer_shopped(customer, reputation)
 				hasGoneOut = false
 				
