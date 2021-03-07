@@ -5,7 +5,7 @@ class_name Customer
 #parameters of customer
 const DEBUG = true
 const CUSTOMER_DEBUG = false
-const DYNAMICS = 0.1
+const DYNAMICS = 0.25
 const MULT_MIN = 1
 const MULT_MAX = 4
 #satisfaction timeout is in days
