@@ -34,7 +34,7 @@ const MIN_SATISFACTION = 0.5
 const SATISFACTION_FREQUENCY = 30.0
 var satisfaction_degradation_per_tick
 
-const DEBUG = true
+const DEBUG = false
 const POPULATION_DEBUG = false
 
 #instances of customer classes for calculations

@@ -82,10 +82,10 @@ func test():
 	#var marketing = get_tree().get_root().get_node("UI/ColorRect").reportValues()[2]
 	var marketing = 20
 	var population = Population.new(price, marketing, 10, 5)
-	print('Population is done, there are {a} active customers and {p} passive ones.'.format({
-		'a': population.active_customers.size(),
-		'p': population.passive_customers.size()
-		}))
+#	print('Population is done, there are {a} active customers and {p} passive ones.'.format({
+#		'a': population.active_customers.size(),
+#		'p': population.passive_customers.size()
+#		}))
 	#print('Deleting active customers...')
 	#population.call("delete_customer_array", true)
 	#print('Deleting passive customers...')
@@ -163,7 +163,7 @@ func collectUIData():
 	if myBuffet != null:
 		#print("NOTNULL")
 		#  [ár 0...100, bérelt hely 0...3, marketing 0...100, chef 1...4, alapanyag 0...4]
-		print(uiData)
+#		print(uiData)
 		myBuffet.currentPrice = 2 *  uiData[0]
 		myBuffet.rentedSpace  =  uiData[1]
 		myBuffet.marketing =     uiData[2]
@@ -179,7 +179,7 @@ func _on_FrameUpdateTimer_timeout():
 	var customersgoing = []
 	match mainState:
 		START:
-			print(mainState)
+#			print(mainState)
 			#init the bufet
 			myBuffet = buffetClass.new()
 			marketingSlider.value = 50;
@@ -191,7 +191,7 @@ func _on_FrameUpdateTimer_timeout():
 		DAY_INIT:
 			#start the day
 			dayTimer.start()
-			print(mainState)
+#			print(mainState)
 			nextState = DAY_RUNNING
 			nextCustomerCanComeToDesk = true
 			myBuffet.dailyIncome = 0.0
@@ -209,13 +209,13 @@ func _on_FrameUpdateTimer_timeout():
 			myPopulation.update_marketing(myBuffet.marketing)
 			customersgoing = myPopulation.get_customers_tick()
 			#print(customersgoing.size())
-			print('Buffersize of Buffet: {a}'.format({'a' : myBuffet.currentCustomerCount}))
+#			print('Buffersize of Buffet: {a}'.format({'a' : myBuffet.currentCustomerCount}))
 			if customersgoing.size() > 0:
 				
 				for i in range(customersgoing.size()):
 					myBuffet.addCustomer(customersgoing[i])
 				#print(customersgoing)
-				print("Customerts coming in from population: {p}".format({'p':customersgoing.size()}))
+#				print("Customerts coming in from population: {p}".format({'p':customersgoing.size()}))
 				#print(customersgoing.size())
 				emit_signal("customersEntering", customersgoing.size())
 			
@@ -235,7 +235,7 @@ func _on_FrameUpdateTimer_timeout():
 			nextState = BETWEEN_DAYS
 			
 		BETWEEN_DAYS:
-			print("Day elapsed, paying bills, then new day coming")
+#			print("Day elapsed, paying bills, then new day coming")
 			myBuffet.payBills()
 			nextState = DAY_INIT
 			pass
@@ -248,7 +248,7 @@ func customerStateMachine():
 	#{NO_CUSTOMER, INTERACTION_START, CHECK_SPECIAL, CUSTOMER_FINISHING, CUSTOMER_APPROACHING,
 	  #PAYING, WAITING_FOR_CHANGE,}
 	var nextState = interactionState
-	print(d[interactionState])
+#	print(d[interactionState])
 	match interactionState:
 		NO_CUSTOMER:
 #			if firstCustomerCameIn:
@@ -282,7 +282,7 @@ func customerStateMachine():
 			if hasGoneOut:
 				
 				var customer = myBuffet.removeCustomer()
-				print(customer)
+#				print(customer)
 				if customer != null:
 					
 					var quantity = customer.get_quantity(myBuffet.currentPrice)
@@ -292,11 +292,11 @@ func customerStateMachine():
 						myBuffet.overallIncome += profit
 						Globalis.allMoney = myBuffet.overallIncome
 						var reputation = myBuffet.getReputation()
-						print("Chef: {c}, Space: {s}, Material: {m}".format({
-							'c': myBuffet.chefs,
-							's': myBuffet.rentedSpace,
-							'm': myBuffet.rawMaterial
-						}))
+#						print("Chef: {c}, Space: {s}, Material: {m}".format({
+#							'c': myBuffet.chefs,
+#							's': myBuffet.rentedSpace,
+#							'm': myBuffet.rawMaterial
+#						}))
 						myPopulation.customer_shopped(customer, reputation)
 				hasGoneOut = false
 				
@@ -333,7 +333,7 @@ func customerStateMachine():
 
 #This function handles the day
 func _on_DayTimer_timeout():
-	print("Day elapsed")
+#	print("Day elapsed")
 	isDayElapsed = true
 	emit_signal("dayElapsed")
 

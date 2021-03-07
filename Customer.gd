@@ -3,7 +3,7 @@ extends Object
 class_name Customer
 
 #parameters of customer
-const DEBUG = true
+const DEBUG = false
 const CUSTOMER_DEBUG = false
 const DYNAMICS = 0.25
 const MULT_MIN = 1
