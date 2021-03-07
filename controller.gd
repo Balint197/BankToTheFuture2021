@@ -283,7 +283,7 @@ func customerStateMachine():
 						myBuffet.dailyIncome += profit
 						myBuffet.overallIncome += profit
 						Globalis.allMoney = myBuffet.overallIncome
-						var reputation = 1
+						var reputation = myBuffet.getReputation()
 						print("Chef: {c}, Space: {s}, Material: {m}".format({
 							'c': myBuffet.chefs,
 							's': myBuffet.rentedSpace,
