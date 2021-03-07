@@ -1,9 +1,16 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/fonts/title.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/buttons/whiteoff.png" type="Texture" id=2]
 [ext_resource path="res://assets/buttons/whiteon.png" type="Texture" id=3]
 [ext_resource path="res://menu.gd" type="Script" id=4]
+[ext_resource path="res://assets/characters/Kép1.png" type="Texture" id=5]
+[ext_resource path="res://assets/characters/rich-man.png" type="Texture" id=6]
+[ext_resource path="res://assets/fonts/Raleway-Regular.ttf" type="DynamicFontData" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+size = 22
+font_data = ExtResource( 7 )
 
 [node name="menu" type="Control"]
 anchor_right = 1.0
@@ -21,10 +28,10 @@ margin_bottom = 40.0
 color = Color( 0.960784, 1, 0.772549, 1 )
 
 [node name="TextureButton" type="TextureButton" parent="."]
-margin_left = 164.543
-margin_top = 601.909
-margin_right = 264.543
-margin_bottom = 735.909
+margin_left = 147.725
+margin_top = 888.223
+margin_right = 247.725
+margin_bottom = 1022.22
 rect_scale = Vector2( 3.183, 1 )
 texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 3 )
@@ -33,10 +40,10 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="."]
-margin_left = 139.589
-margin_top = 198.451
-margin_right = 514.589
-margin_bottom = 668.451
+margin_left = 117.726
+margin_top = 58.8623
+margin_right = 492.726
+margin_bottom = 958.862
 custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Warren's Buffet
@@ -49,8 +56,43 @@ BankToThe Future 2021
 
 
 
+
+
+
+
+
+
+
+
+
+
 Játék indítása"
 align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="rich-man" type="Sprite" parent="."]
+position = Vector2( 170.913, 608.284 )
+scale = Vector2( 0.648532, 0.648532 )
+texture = ExtResource( 6 )
+
+[node name="Kép1" type="Sprite" parent="rich-man"]
+position = Vector2( 428.102, -247.654 )
+scale = Vector2( 2.0328, 2.0328 )
+texture = ExtResource( 5 )
+
+[node name="Label" type="Label" parent="rich-man/Kép1"]
+margin_left = -114.0
+margin_top = -108.0
+margin_right = 110.0
+margin_bottom = 59.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Gazdálkodj okosan a cukrászda pénzügyeivel, nehogy csődbe menj!"
+align = 1
+valign = 1
+autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
