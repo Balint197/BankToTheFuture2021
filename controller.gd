@@ -17,6 +17,7 @@ onready var money = get_tree().get_root().get_node("UI/TextureRect/Label")
 onready var priceSlider = get_tree().get_root().get_node("UI/ColorRect/HScrollBar")
 onready var uiInterface = get_tree().get_root().get_node("UI/ColorRect")
 onready var marketingSlider = get_tree().get_root().get_node("UI/ColorRect/scrollingContainer/TabContainer/marketing/marketingSlider")
+onready var rentPriceText = get_tree().get_root().get_node("UI/ColorRect/scrollingContainer/TabContainer/rent/Label2")
 
 onready var dayTimer = get_tree().get_root().get_node("UI/controller/DayTimer")
 #---------------------------END OF ACCESSING NODES-----------------------------------------------------------#
@@ -218,6 +219,7 @@ func _on_FrameUpdateTimer_timeout():
 			#run the customer state machine
 			customerStateMachine()
 			money.text = String(myBuffet.overallIncome)
+			rentPriceText.text = String("Büfé bérleti díja: " + String(myBuffet.getPrice('rent')))
 			
 			if isDayElapsed:
 				nextState = DAY_ELAPSED
