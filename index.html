@@ -148,14 +148,17 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
+		  <li class="nav-item">
+			<a class="nav-link js-scroll-trigger" href="#features">Részletek</a>
+		  </li>
+		  <li class="nav-item">
+			<a class="nav-link js-scroll-trigger" href="#video">Videó</a>
+		  </li>
+		  <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#team">Csapat</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#game">Játék</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#features">Részletek</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#team">Csapat</a>
           </li>
         </ul>
       </div>
@@ -189,7 +192,7 @@
     </div>
   </header>
 
-  <section class="features" id="features">
+  <section class="features" style="background-color: #d2d48b;" id="features">
     <div class="container">
       <div class="section-heading text-center">
         <h2>Pénzügyi érettség játékosan, kicsiknek</h2>
@@ -204,7 +207,6 @@
                 <div class="screen">
                   <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
                   <img src="img/kviz.png" class="img-fluid" alt="">
-		  <p>Ide majd vmi demo kép</p>
                 </div>
               </div>
             </div>
@@ -250,22 +252,6 @@
     </div>
   </section>
 
-  <section class="download text-center" id="video">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-10 mx-auto">
-          <h2 class="section-heading">Nézd meg bemutatkozó videónk!</h2>
-          <p>Itt fog jönni a demó videó</p>
-        </div>
-      </div>
-      <div class="row">
-	<div class="embed-responsive embed-responsive-16by9">
-          <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/j9V78UbdzWI" allowfullscreen></iframe>
-	</div>
-      </div>
-    </div>
-  </section>
-
   <section class="cta">
     <div class="cta-content">
       <div class="container">
@@ -276,52 +262,71 @@
     <div class="overlay"></div>
   </section>
 
- <section class="features" style="background-color: #92D5E6;" id="team">
+  <section class="download text-center" style="background-color: #638475;" id="video">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-10 mx-auto">
+          <h2 class="section-heading text-light mb-5">Nézd meg bemutatkozó videónk!</h2>
+        </div>
+      </div>
+      <div class="row">
+	<div class="embed-responsive embed-responsive-16by9 mt-5">
+          <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/j9V78UbdzWI" allowfullscreen></iframe>
+	</div>
+      </div>
+    </div>
+  </section>
+
+ <section class="features text-light" style="background-color: #003049;" id="team">
     <div class="container">
       <div class="section-heading text-center">
         <h2>Kik vagyunk</h2>
         <p class="text-muted">Fejlesztőként tapasztalt mérnökhallgató csapat</p>
         <hr>
       </div>
-      <div class="row">           
-        <div class="col-6">
-           <img src="img/balo.jpg" alt="balint" class="img-fluid">
+      <div class="row align-items-center">           
+        <div class="col-lg-2">
+           <img src="img/balo.png" alt="balint" class="img-fluid">
          </div>
-         <div class="col-6">
-           <h4>Hajnal Bálint, 24, mechatronikai mérnök MSc</h4>
+         <div class="col-lg-10" style="text-align: left;">
+           <h4>Hajnal Bálint</h4>
+		   <h6>24, mechatronikai mérnök MSc</h6>
            <p class="text-muted">Már gyerekkorom óta foglalkozok játékfejlesztéssel, és az oktatás ilyen formájú innovációja is rendkívül foglalkoztat.</p>
          </div>
       </div>
-	  <div class="row">           
-        <div class="col-6">
-           <img src="img/peti.jpg" alt="peti" class="img-fluid">
+	  <div class="row align-items-center">           
+        <div class="col-lg-2">
+           <img src="img/peti.png" alt="peti" class="img-fluid">
          </div>
-         <div class="col-6">
-           <h4>Dénes Péter, 23, Mechatronikai mérnök MSc</h4>
+         <div class="col-lg-10" style="text-align: left;">
+           <h4>Dénes Péter</h4>
+		   <h6>23, mechatronikai mérnök MSc</h6>
            <p class="text-muted">Korábbi tanulmányaimat gépészmérnökként végeztem, de a BSc vége fele elkezdett érdekelni a műszaki élet szoftveres része is, ezért érdekel minden fejlődési lehetőség.</p>
          </div>
       </div>
-	  <div class="row">           
-        <div class="col-6">
-           <img src="img/krisz.jpg" alt="krisz" class="img-fluid">
+	  <div class="row align-items-center">           
+        <div class="col-lg-2">
+           <img src="img/krisz.png" alt="krisz" class="img-fluid">
          </div>
-         <div class="col-6">
-           <h4>Kránitz Krisztián, 22, Mechatronikai mérnök MSc</h4>
+         <div class="col-lg-10" style="text-align: left;">
+           <h4>Kránitz Krisztián</h4>
+		   <h6>22, mechatronikai mérnök MSc</h6>
            <p class="text-muted">Régóta foglalkozom programozással, illetve mindig is érdekelt a pénzügy világa, ezért találtam nagyon vonzónak ezt a verseny lehetőséget, ami két kedvenc területemet köti össze.</p>
          </div>
       </div>
     </div>
   </section>
 
-  <section class="features" id="game">
+  <section class="container" id="game">
     <div class="container">
       <div class="section-heading text-center">
-        <h2>Játék kipróbálása</h2>
+        <h2 class="text-light">Játék kipróbálása</h2>
         <p class="text-muted">Próbáld ki a játékot és tanulj szórakozva Te is!</p>
+		<a href="https://gotm.io/banktothefuture/warrensbuffet" class="btn btn-outline btn-xl js-scroll-trigger">Nem működik? Próbálkozz itt!</a>
         <hr>
       </div>
       <div class="row">
-        <div class="col-lg-12 my-auto">
+        <div class="col-lg-12">
           <div class="container-fluid">
             <canvas id='canvas' width='600', height='1000'>
 				HTML5 canvas appears to be unsupported in the current browser.<br />
