@@ -73,8 +73,8 @@ func handleOrder():
 	startMiniGame()
 
 func startMiniGame():
-	$Button.visible = true
-	$Button.disabled = false
+	$Button3.visible = true
+	$Button3.disabled = false
 	emit_signal("nextCustomerArrivedToDesk")
 	
 func _on_Button_pressed():
@@ -83,6 +83,7 @@ func _on_Button_pressed():
 	endMiniGame()
 	
 func endMiniGame():
+	$Particles2D.emitting = true
 	ordering = 0
 	emit_signal("customerDone")
 	#emit_signal("nextCustomerCanComeToDesk")
@@ -91,12 +92,13 @@ func endMiniGame():
 		newCustomer()
 		buffer -= 1
 	characters_array = $Path2D.get_children()
-	var leaving = characters_array[0]
-	$Path2D.remove_child(leaving) 
-	add_child(leaving)
-	leaving.get_node("AnimationPlayer").play("walkOut")
-	for i in characters_array:
-		i.get_node("AnimationPlayer").play()
+	if characters_array.size()>0:
+		var leaving = characters_array[0]
+		$Path2D.remove_child(leaving) 
+		add_child(leaving)
+		leaving.get_node("AnimationPlayer").play("walkOut")
+		for i in characters_array:
+			i.get_node("AnimationPlayer").play()
 
 
 func _on_Button2_pressed():
@@ -150,3 +152,9 @@ func _on_controller_waitForChange():
 
 func _on_controller_customersEntering(num):
 	buffer = num
+
+
+func _on_Button3_pressed():
+	$Button3.visible = false
+	$Button3.disabled = true
+	endMiniGame()

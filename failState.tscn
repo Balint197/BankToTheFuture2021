@@ -1,0 +1,64 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/buttons/whiteoff.png" type="Texture" id=1]
+[ext_resource path="res://assets/fonts/font.tres" type="DynamicFont" id=2]
+
+[node name="failState" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 40.0
+margin_bottom = 40.0
+color = Color( 0.458824, 0.654902, 0.278431, 1 )
+
+[node name="Button" type="TextureButton" parent="."]
+modulate = Color( 0.835294, 0.819608, 0.262745, 1 )
+margin_left = 144.0
+margin_top = 619.0
+margin_right = 244.0
+margin_bottom = 719.0
+rect_scale = Vector2( 3.5, 1 )
+texture_normal = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button2" type="TextureButton" parent="."]
+modulate = Color( 0.835294, 0.819608, 0.262745, 1 )
+margin_left = 144.0
+margin_top = 796.0
+margin_right = 244.0
+margin_bottom = 896.0
+rect_scale = Vector2( 3.5, 1 )
+texture_normal = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = 120.471
+margin_top = 391.425
+margin_right = 531.471
+margin_bottom = 818.425
+custom_fonts/font = ExtResource( 2 )
+text = "5 nap utáni profitod:
+
+
+
+
+
+Pontok beváltása
+
+
+
+Eredménytábla"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
