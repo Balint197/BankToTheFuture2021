@@ -53,11 +53,11 @@ func removeCustomer():
 	
 func payBills():
 	var bills = \
-		self.rentedPlace + \
+		self.rentedSpace + \
 		self.chefs + \
 		self.marketing	
 	print("Paying bills: {r} rent, {c} chef, {m} marketing".format({
-		'r': self.rentedPlace,
+		'r': self.rentedSpace,
 		'c': self.chef,
 		'm': self.marketing
 		}))	
