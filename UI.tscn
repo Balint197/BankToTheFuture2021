@@ -128,13 +128,16 @@ position = Vector2( -32.1014, 25.9822 )
 scale = Vector2( 0.117584, 0.117584 )
 texture = ExtResource( 25 )
 
-[node name="Label" type="Label" parent="ColorRect/HScrollBar"]
+[node name="termekar" type="Label" parent="ColorRect/HScrollBar"]
 margin_left = 95.9406
 margin_top = -44.188
 margin_right = 343.941
 margin_bottom = -4.18805
 custom_fonts/font = ExtResource( 8 )
 text = "A termékek ára:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label2" type="Label" parent="ColorRect"]
 margin_left = 105.079
@@ -247,6 +250,7 @@ __meta__ = {
 }
 
 [node name="rent" type="Tabs" parent="ColorRect/scrollingContainer/TabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 scrolling_enabled = false
@@ -318,7 +322,6 @@ __meta__ = {
 }
 
 [node name="marketing" type="Tabs" parent="ColorRect/scrollingContainer/TabContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 scrolling_enabled = false
@@ -327,10 +330,10 @@ __meta__ = {
 }
 
 [node name="marketingLabel" type="Label" parent="ColorRect/scrollingContainer/TabContainer/marketing"]
-margin_left = 23.2363
-margin_top = 279.0
-margin_right = 524.236
-margin_bottom = 465.0
+margin_left = 126.0
+margin_top = 29.0
+margin_right = 505.0
+margin_bottom = 215.0
 custom_fonts/font = ExtResource( 8 )
 text = "Állítsd a marketingköltséget, ami alapján több vásárlód lehet!"
 align = 1
@@ -339,11 +342,24 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="marketingar" type="Label" parent="ColorRect/scrollingContainer/TabContainer/marketing"]
+margin_left = 73.0
+margin_top = 336.0
+margin_right = 452.0
+margin_bottom = 426.0
+custom_fonts/font = ExtResource( 8 )
+text = "ar"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="marketingSlider" type="HScrollBar" parent="ColorRect/scrollingContainer/TabContainer/marketing"]
-margin_left = 98.2427
-margin_top = 188.77
-margin_right = 472.243
-margin_bottom = 246.77
+margin_left = 84.2427
+margin_top = 223.77
+margin_right = 458.243
+margin_bottom = 281.77
 custom_styles/grabber_highlight = ExtResource( 15 )
 custom_styles/grabber = ExtResource( 14 )
 custom_styles/scroll = ExtResource( 13 )
@@ -485,10 +501,10 @@ __meta__ = {
 }
 
 [node name="Label4" type="Label" parent="ColorRect/scrollingContainer/TabContainer/ingredient"]
-margin_left = 50.4898
-margin_top = 410.205
-margin_right = 509.49
-margin_bottom = 493.205
+margin_left = 73.4898
+margin_top = 19.205
+margin_right = 532.49
+margin_bottom = 102.205
 custom_fonts/font = ExtResource( 8 )
 text = "Használj minőségibb alapanyagokat!"
 align = 1
@@ -497,12 +513,25 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="osszalap" type="Label" parent="ColorRect/scrollingContainer/TabContainer/ingredient"]
+margin_left = 23.4898
+margin_top = 389.205
+margin_right = 482.49
+margin_bottom = 472.205
+custom_fonts/font = ExtResource( 8 )
+text = "ár"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="GridContainer" type="GridContainer" parent="ColorRect/scrollingContainer/TabContainer/ingredient"]
-margin_left = 96.8167
-margin_top = 109.133
-margin_right = 498.817
-margin_bottom = 443.133
-custom_constants/vseparation = 90
+margin_left = 77.0
+margin_top = 117.0
+margin_right = 479.0
+margin_bottom = 416.0
+custom_constants/vseparation = 70
 custom_constants/hseparation = 150
 columns = 2
 __meta__ = {
@@ -536,9 +565,9 @@ __meta__ = {
 
 [node name="ingredient3" type="TextureButton" parent="ColorRect/scrollingContainer/TabContainer/ingredient/GridContainer"]
 modulate = Color( 0.341176, 0.439216, 0.34902, 1 )
-margin_top = 190.0
+margin_top = 170.0
 margin_right = 100.0
-margin_bottom = 290.0
+margin_bottom = 270.0
 toggle_mode = true
 texture_normal = ExtResource( 11 )
 texture_pressed = ExtResource( 12 )
@@ -550,9 +579,9 @@ __meta__ = {
 [node name="ingredient4" type="TextureButton" parent="ColorRect/scrollingContainer/TabContainer/ingredient/GridContainer"]
 modulate = Color( 0.341176, 0.439216, 0.34902, 1 )
 margin_left = 250.0
-margin_top = 190.0
+margin_top = 170.0
 margin_right = 350.0
-margin_bottom = 290.0
+margin_bottom = 270.0
 toggle_mode = true
 texture_normal = ExtResource( 11 )
 texture_pressed = ExtResource( 12 )
@@ -562,7 +591,7 @@ __meta__ = {
 }
 
 [node name="cake" type="Sprite" parent="ColorRect/scrollingContainer/TabContainer/ingredient/GridContainer"]
-position = Vector2( 47.9704, 231.743 )
+position = Vector2( 51.9702, 218.743 )
 scale = Vector2( 0.135872, 0.135872 )
 texture = ExtResource( 18 )
 
@@ -577,7 +606,7 @@ scale = Vector2( 0.153053, 0.153053 )
 texture = ExtResource( 17 )
 
 [node name="expensive" type="Sprite" parent="ColorRect/scrollingContainer/TabContainer/ingredient/GridContainer"]
-position = Vector2( 300.095, 237.979 )
+position = Vector2( 300.095, 221.979 )
 scale = Vector2( 0.154342, 0.154342 )
 texture = ExtResource( 19 )
 
@@ -620,8 +649,8 @@ __meta__ = {
 [connection signal="customerComesIn" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_customerComesIn"]
 [connection signal="customerFinished" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_customerFinished"]
 [connection signal="customersEntering" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_customersEntering"]
-[connection signal="dayElapsed" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_dayElapsed"]
 [connection signal="dayElapsed" from="controller" to="." method="_on_controller_dayElapsed"]
+[connection signal="dayElapsed" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_dayElapsed"]
 [connection signal="firstCustomerComesIn" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_firstCustomerComesIn"]
 [connection signal="nextCustomerToDesk" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_nextCustomerToDesk"]
 [connection signal="showSpecial" from="controller" to="ViewportContainer/Viewport/gameUI" method="_on_controller_showSpecial"]

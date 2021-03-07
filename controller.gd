@@ -18,6 +18,9 @@ onready var priceSlider = get_tree().get_root().get_node("UI/ColorRect/HScrollBa
 onready var uiInterface = get_tree().get_root().get_node("UI/ColorRect")
 onready var marketingSlider = get_tree().get_root().get_node("UI/ColorRect/scrollingContainer/TabContainer/marketing/marketingSlider")
 onready var rentPriceText = get_tree().get_root().get_node("UI/ColorRect/scrollingContainer/TabContainer/rent/Label2")
+onready var termekar =  get_tree().get_root().get_node("UI/ColorRect/HScrollBar/termekar")
+onready var osszalap =  get_tree().get_root().get_node("UI/ColorRect/scrollingContainer/TabContainer/ingredient/osszalap")
+onready var marketingAr =  get_tree().get_root().get_node("UI/ColorRect/scrollingContainer/TabContainer/marketing/marketingar")
 
 onready var dayTimer = get_tree().get_root().get_node("UI/controller/DayTimer")
 #---------------------------END OF ACCESSING NODES-----------------------------------------------------------#
@@ -220,6 +223,9 @@ func _on_FrameUpdateTimer_timeout():
 			customerStateMachine()
 			money.text = String(myBuffet.overallIncome)
 			rentPriceText.text = String("Büfé bérleti díja: " + String(myBuffet.getPrice('rent')))
+			termekar.text = "A termék ára: " + String(myBuffet.currentPrice)
+			osszalap.text = "A kiválaszott hozzávalók ára: " + String(myBuffet.getPrice("material")*RAW_MATERIAL_PRICE)
+			marketingAr.text = "A marketingköltség: " + String(myBuffet.getPrice("marketing"))
 			
 			if isDayElapsed:
 				nextState = DAY_ELAPSED
