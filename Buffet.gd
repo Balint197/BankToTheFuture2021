@@ -50,5 +50,19 @@ func removeCustomer():
 	if currentCustomerCount>0:
 		currentCustomerCount -=1
 	return customers.pop_front()
+	
+func payBills():
+	var bills = \
+		self.rentedPlace + \
+		self.chefs + \
+		self.marketing	
+	print("Paying bills: {r} rent, {c} chef, {m} marketing".format({
+		'r': self.rentedPlace,
+		'c': self.chef,
+		'm': self.marketing
+		}))	
+	self.overallIncome -= bills
+	return bills
+		
 
 

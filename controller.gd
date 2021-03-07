@@ -159,7 +159,7 @@ func collectUIData():
 		print(uiData[0])
 		myBuffet.currentPrice = 2 *  uiData[0]
 		myBuffet.rentedSpace  =  uiData[1]
-		myBuffet.marketing =  50#   uiData[2]
+		myBuffet.marketing =     uiData[2]
 		myBuffet.chefs =         uiData[3]
 		myBuffet.rawMaterial =   uiData[4]
 
@@ -200,15 +200,15 @@ func _on_FrameUpdateTimer_timeout():
 			myPopulation.update_price(myBuffet.currentPrice)
 			myPopulation.update_marketing(myBuffet.marketing)
 			customersgoing = myPopulation.get_customers_tick()
-			print(customersgoing.size())
-			print('Buffersize: {a}'.format({'a' : myBuffet.currentCustomerCount}))
+			#print(customersgoing.size())
+			print('Buffersize of Buffet: {a}'.format({'a' : myBuffet.currentCustomerCount}))
 			if customersgoing.size() > 0:
 				
 				for i in range(customersgoing.size()):
 					myBuffet.addCustomer(customersgoing[i])
-				print(customersgoing)
-				print("CustomersSize")
-				print(customersgoing.size())
+				#print(customersgoing)
+				print("Customerts coming in from population: {p}".format({'p':customersgoing.size()}))
+				#print(customersgoing.size())
 				emit_signal("customersEntering", customersgoing.size())
 			
 			#run the customer state machine
@@ -223,6 +223,9 @@ func _on_FrameUpdateTimer_timeout():
 			nextState = BETWEEN_DAYS
 			
 		BETWEEN_DAYS:
+			print("Day elapsed, paying bills, then new day coming")
+			myBuffet.payBills()
+			nextState = DAY_INIT
 			pass
 		_:
 			mainState = START
@@ -272,10 +275,12 @@ func customerStateMachine():
 					
 					var quantity = customer.get_quantity(myBuffet.currentPrice)
 					if quantity >= 0:
-						myBuffet.dailyIncome += myBuffet.currentPrice * quantity
-						myBuffet.overallIncome += myBuffet.currentPrice * quantity
+						var profit = (myBuffet.currentPrice - myBuffet.rawMaterial) * quantity
+						myBuffet.dailyIncome += profit
+						myBuffet.overallIncome += profit
 						Globalis.allMoney = myBuffet.overallIncome
-						myPopulation.customer_shopped(customer, 1)
+						var reputation = 1
+						myPopulation.customer_shopped(customer, reputation)
 				hasGoneOut = false
 				
 				
