@@ -172,7 +172,7 @@ margin_bottom = 600.0
 custom_fonts/font = ExtResource( 3 )
 text = "Helyes válasz!
 
-Jutalmad ###"
+Jutalmad 300 pénzérme!"
 align = 1
 valign = 1
 __meta__ = {
@@ -188,7 +188,7 @@ margin_bottom = 600.0
 custom_fonts/font = ExtResource( 3 )
 text = "Hibás válasz!
 
-XXX pénzt vesztettél"
+100 pénzérmét vesztettél"
 align = 1
 valign = 1
 __meta__ = {

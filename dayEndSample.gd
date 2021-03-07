@@ -1,13 +1,14 @@
 extends Control
 
 func _ready():
-	pass
+	$daySummary.text = "Vagyonod a nap végén: " + String(Globalis.allMoney)
 
 func goodAnswer():
 	print("ok")
 	$ColorRect.color = Color(0.22, 0.6, 0.21)
 	# add money/sth
 	$jo.visible = true
+	Globalis.allMoney += 300
 
 	$Timer.start()
 	hideUI()
@@ -15,6 +16,7 @@ func goodAnswer():
 func wrongAnswer():
 	$ColorRect.color = Color(0.6, 0.24, 0.21)
 	$rossz.visible = true
+	Globalis.allMoney -= 100
 	$Timer.start()
 	hideUI()
 	

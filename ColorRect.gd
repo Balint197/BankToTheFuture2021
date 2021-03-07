@@ -28,12 +28,13 @@ var rest_3 = preload("res://assets/bg/rest_3.jpg")
 
 
 func _ready():
-	pass # Replace with function body.
+	marketing = 50
 
 
 func reportValues():
 	ingredient = int(ingr1.pressed) + int(ingr2.pressed) + int(ingr3.pressed) + int(ingr4.pressed)
 	values = [priceScrollBar.value, rent, marketing, chef, ingredient]
+	print(values)
 	return values
 	
 func scrollToUpgrades():
